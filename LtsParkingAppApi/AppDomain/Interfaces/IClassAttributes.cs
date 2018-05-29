@@ -42,7 +42,7 @@ namespace AppDomain.Models.Interfaces
         ///  This Entity will give us the Entity Created by the user
         /// </summary>
         //[MaxLength(32)]
-        Guid CreatedBy { get; set; }
+        int CreatedBy { get; set; }
 
         /// <summary>
         ///  This Entity will give us the Entity Created on a date
@@ -59,7 +59,7 @@ namespace AppDomain.Models.Interfaces
         ///  This Entity will give us the Entity modified by the user
         /// </summary>
         //[MaxLength(32)]
-        Guid? ModifiedBy { get; set; }
+        int? ModifiedBy { get; set; }
 
         /// <summary>
         ///  This Entity will give us the Entity modified on a date
