@@ -9,3 +9,16 @@ C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppServices\obj\Debug\netcorea
 C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.AssemblyInfo.cs
 C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.dll
 C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.pdb
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\AppServices.deps.json
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\AppServices.dll
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\AppServices.pdb
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\AppDomain.dll
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\AppDomain.pdb
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.csprojResolveAssemblyReference.cache
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.csproj.CoreCompileInputs.cache
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.AssemblyInfoInputs.cache
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.AssemblyInfo.cs
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.dll
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.pdb
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Hosting.dll
+C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Hosting.xml

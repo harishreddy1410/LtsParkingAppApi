@@ -31,6 +31,8 @@ namespace AppDomain.Models
 
         [StringLength(100)]
         public string Email { get; set; }
+
+        public virtual ParkingTraffic ParkingTraffic { get; set; }
     }
 
     public enum Roles

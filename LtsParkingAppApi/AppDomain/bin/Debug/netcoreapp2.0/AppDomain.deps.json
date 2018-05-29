@@ -568,35 +568,35 @@
     "Remotion.Linq/2.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VaN8xCEzHxipxbRJCfFa5gJ8DNlFYPs9dt9V24t7Mw1wL9MjnMx63IlbuHUql2Rt4FwC8Rk1Bw7L3CfWQiqW7Q==",
+      "sha512": "sha512-IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
       "path": "remotion.linq/2.1.1",
       "hashPath": "remotion.linq.2.1.1.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-O2NIMxOO/N5vHloq1BuS1ZNA1Li4jAEuc4dWeaHyWO6aBIuIXkPExnxcRxWoeut+FKSOd0e3QAm75+0twQyelQ==",
+      "sha512": "sha512-D024Ec2QU+of4QiOf/bOr0kir7qIjI8pOam5ySdB+zLKJlNjo8zJLLO62IoOjGrIm5tJz1Mc1+Uw/4/6hQYpiw==",
       "path": "runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
     "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1RfUnMcyH3+vFQzGlyCnFaj+vcJmKrA+g8tL4aATHWxEbk6Xy3Gc+eMq0nfNuNy4MtNqUN7mAVgZgzaBFn31Wg==",
+      "sha512": "sha512-g+c3DCqhTjlcVYlmW0HrtVBiA7QajOFbmVZZuCuLZF5Y6xyBeil2OPTZqlUq5WQwY6d8ld4xW7FKEeySgcMNCQ==",
       "path": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
     "runtime.win-x64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3CRUaHaTmelP2WppxDSPjBZxw1JreixrAcPFhw2RX3Cv5LczfXNS0E6nQx1CMvKTOfwFPAWhKmkybm4UwRfd7A==",
+      "sha512": "sha512-Q6a1vOdSPoPerhc+i2s7D+27kwu9yyC7PA1t2YG3qwtq2Zsik6Wo6a6cAvVWerbFLuu9HoTPYDDs1AF/AybfYQ==",
       "path": "runtime.win-x64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
     "runtime.win-x86.runtime.native.System.Data.SqlClient.sni/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GPQ/DBvDmNBdG31h4+N/WJQQT+H9sSKm5UI6ERK1zSVUiG5CkSIu/6hYY3sRlf57LdFMsBbu4LQOMrOy3skMTA==",
+      "sha512": "sha512-yWFqbDnVvryYz4BvWX/MMzD3DKV+WazTZJUsnxbqbofwX5kBIzhZ/TO788SAhhgrPV5E3fSOaYFWN0hhCEmjjQ==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
@@ -638,7 +638,7 @@
     "System.Diagnostics.DiagnosticSource/4.4.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LTb2uetIewJLw9wJUAEyh03UuTwA8oihyJVBfJ51fI+C9bStdQKMlclvCm2GqeW1xns3njRwGN9xiVOYAPLl0A==",
+      "sha512": "sha512-kP4D8ldrACN+p8u/+9jaoJZaaTCAJzhTACk9zUdQNuao9tTwWzDe5PNa8uGUc0ebQ9sCe0kHObOxuQcGlqvnCw==",
       "path": "system.diagnostics.diagnosticsource/4.4.1",
       "hashPath": "system.diagnostics.diagnosticsource.4.4.1.nupkg.sha512"
     },
@@ -680,7 +680,7 @@
     "System.Linq.Queryable/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-uqZ+Ebdcdcs1vBmAiedpXiJnxdkttXiwIlRc4EJnbPQ7X1qvItEWT6j1I18/DJEbO/nncvUho0fvB89NA8oUjQ==",
+      "sha512": "sha512-Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
       "path": "system.linq.queryable/4.0.1",
       "hashPath": "system.linq.queryable.4.0.1.nupkg.sha512"
     },
@@ -778,7 +778,7 @@
     "System.Security.Principal.Windows/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KUYy+SNukrnOzgGVSziXSWPKDhCpkBXecEO5aSBWTblFdOhAp9y88DiH4FCJTOSG2vyI7X1zgzJgVhsbAbc9gw==",
+      "sha512": "sha512-1OaJU+NyK68fcsmUlBj3l4yFOO0s5K4o1diQ7wm/UnbyFbUOIdwRWjjgQWVwjxpLtSgMZ+IZftHhWtEi1dJ6Dg==",
       "path": "system.security.principal.windows/4.4.0",
       "hashPath": "system.security.principal.windows.4.4.0.nupkg.sha512"
     },
@@ -792,7 +792,7 @@
     "System.Text.Encoding.CodePages/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-UEGCXGCgTzSyPqy/YoRLcIaLf1oy+IsE7jngJL+wyprqSnlnNTDODfCa6OSMo89Qz4pqiuWnD4Qwd4fjVqHTsw==",
+      "sha512": "sha512-Jvu7Vj65e0ZhRgt41HlQIa+6oyfwQBTtXEzzHFgAoDqleQulcbdAxXJPp1iW+PABnRUh6YquP+M0yvk5k+5CkQ==",
       "path": "system.text.encoding.codepages/4.4.0",
       "hashPath": "system.text.encoding.codepages.4.4.0.nupkg.sha512"
     },

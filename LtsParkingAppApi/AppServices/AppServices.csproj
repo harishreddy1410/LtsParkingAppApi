@@ -5,7 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AppDomain\AppDomain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dto\Input\" />
   </ItemGroup>
 
 </Project>
