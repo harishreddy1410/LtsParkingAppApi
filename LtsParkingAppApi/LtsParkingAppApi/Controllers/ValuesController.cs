@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppServices.UserService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LtsParkingAppApi.Controllers
@@ -9,6 +10,11 @@ namespace LtsParkingAppApi.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        IUserProfileServices _userProfileServices;
+        public ValuesController(IUserProfileServices userProfileServices)
+        {
+            _userProfileServices = userProfileServices;
+        }
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -18,9 +24,18 @@ namespace LtsParkingAppApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public JsonResult Get(int id)
         {
-            return "value";
+            try
+            {
+                return Json(_userProfileServices.GetUser(id: 2));
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
 
         // POST api/values
