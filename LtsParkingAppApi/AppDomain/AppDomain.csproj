@@ -5,12 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180529154041_addedRestTables.cs" />
+    <Compile Remove="Migrations\20180529154210_addedRestTables.cs" />
+    <Compile Remove="Migrations\20180529160236_addedRestTables.cs" />
+    <Compile Remove="Migrations\20180529160422_addedRestTables.cs" />
+    <Compile Remove="Migrations\20180529160543_addedRestTables.cs" />
+    <Compile Remove="Migrations\20180529162103_addedInitialMigrationForTables.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Hosting">
+      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.hosting\2.0.1\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.0.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>

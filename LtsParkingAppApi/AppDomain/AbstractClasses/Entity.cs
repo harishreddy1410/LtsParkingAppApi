@@ -38,9 +38,9 @@ namespace AppDomain.Models.AbstractClasses
             set { this.IsDeleted = value; }
         }
 
-        public Guid CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
 
-        Guid ICreatedInfo.CreatedBy
+        int ICreatedInfo.CreatedBy
         {
             get { return this.CreatedBy; }
             set { this.CreatedBy = value; }
@@ -54,9 +54,9 @@ namespace AppDomain.Models.AbstractClasses
             set { this.CreatedDate = value; }
         }
 
-        public Guid? ModifiedBy { get; set; }
+        public int? ModifiedBy { get; set; }
 
-        Guid? IModifiedInfo.ModifiedBy
+        int? IModifiedInfo.ModifiedBy
         {
             get { return this.ModifiedBy; }
             set { this.ModifiedBy = value; }
