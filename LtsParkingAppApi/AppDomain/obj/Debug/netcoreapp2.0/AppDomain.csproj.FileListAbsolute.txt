@@ -1,0 +1,9 @@
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\bin\Debug\netcoreapp2.0\AppDomain.deps.json
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\bin\Debug\netcoreapp2.0\AppDomain.dll
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\obj\Debug\netcoreapp2.0\AppDomain.csprojResolveAssemblyReference.cache
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\obj\Debug\netcoreapp2.0\AppDomain.csproj.CoreCompileInputs.cache
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\obj\Debug\netcoreapp2.0\AppDomain.AssemblyInfoInputs.cache
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\obj\Debug\netcoreapp2.0\AppDomain.AssemblyInfo.cs
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\bin\Debug\netcoreapp2.0\AppDomain.pdb
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\obj\Debug\netcoreapp2.0\AppDomain.dll
+C:\Hackathon\Team2\LtsParkingApi\LtsParkingAppApi\AppDomain\obj\Debug\netcoreapp2.0\AppDomain.pdb
