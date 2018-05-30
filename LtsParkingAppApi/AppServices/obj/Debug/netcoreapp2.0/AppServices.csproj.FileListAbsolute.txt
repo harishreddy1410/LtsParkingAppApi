@@ -20,5 +20,3 @@ C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2
 C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.AssemblyInfo.cs
 C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.dll
 C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\obj\Debug\netcoreapp2.0\AppServices.pdb
-C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Hosting.dll
-C:\Hackathon\LtsParkingAppApi\LtsParkingAppApi\AppServices\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Hosting.xml
