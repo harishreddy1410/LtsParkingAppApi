@@ -8,6 +8,7 @@ using AppDomain.Repositories;
 using AppServices.AutoMapperProfileConfiguration;
 using AppServices.UserService;
 using LtsParkingAppApi.App_Start;
+using LtsParkingAppApi.Helpers.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -56,7 +57,9 @@ namespace LtsParkingAppApi
             var registerDI = new RegisterDependancyInjections(services, _config);
             registerDI.RegisterGenericMiddleware();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["AppDbContext"]));
-            services.AddMvc();
+            services
+                .AddMvc()
+                .AddMvcOptions(options => options.Filters.Add(typeof(ApiRequestValidator)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
