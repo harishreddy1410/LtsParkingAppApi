@@ -22,8 +22,8 @@ namespace LtsParkingAppApi.Helpers.Filters
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {           
-            if (!WebApiHelper.ValidateInternalToken(context.HttpContext.Request, _config))
-                throw new UnauthorizedAccessException();         
+            //if (!WebApiHelper.ValidateInternalToken(context.HttpContext.Request, _config))
+            //    throw new UnauthorizedAccessException();         
         }
     }
 }

@@ -12,7 +12,7 @@ namespace AppServices.Interfaces
 
         Task<bool> Create(ParkingSlotDtoInput userProfileDtoInput);
                                  
-        Task<bool> Update(ParkingSlotDtoInput userProfileDtoInput);
+        Task<bool> Update(UpdateParkingSlotDtoInput userProfileDtoInput);
 
         Task<bool> Delete(int id, int? DeletedBy);
 

@@ -6,8 +6,11 @@ using AppDomain.Contexts;
 using AppDomain.Models.Interfaces;
 using AppDomain.Repositories;
 using AppServices.AutoMapperProfileConfiguration;
+using AppServices.Interfaces;
+using AppServices.Services;
 using AppServices.UserService;
 using LtsParkingAppApi.App_Start;
+using LtsParkingAppApi.Helpers.AutoMapperProfile;
 using LtsParkingAppApi.Helpers.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +39,7 @@ namespace LtsParkingAppApi
             _mapperConfiguration = new  AutoMapper.MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapperProfileConfiguration());
-                //cfg.AddProfile(new AutoMapperProfileViewModelConfiguration());
+                cfg.AddProfile(new AutoMapperProfileViewModelConfiguration());
             });
 
             _config = builder.Build();
@@ -51,12 +54,13 @@ namespace LtsParkingAppApi
 
             services.AddScoped<IRepositoryGet, EFRepositoryGet<AppDbContext>>();
             services.AddScoped<IRepository, EFRepository<AppDbContext>>();
+            services.AddScoped<IParkingSlotServices, ParkingSlotServices>();
             services.AddSingleton<AutoMapper.IMapper>(sp => _mapperConfiguration.CreateMapper());
 
 
             var registerDI = new RegisterDependancyInjections(services, _config);
             registerDI.RegisterGenericMiddleware();
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["AppDbContext"]));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["AppDbContext"]));           
             services
                 .AddMvc()
                 .AddMvcOptions(options => options.Filters.Add(typeof(ApiRequestValidator)));
@@ -69,7 +73,7 @@ namespace LtsParkingAppApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseMvc();
         }
     }

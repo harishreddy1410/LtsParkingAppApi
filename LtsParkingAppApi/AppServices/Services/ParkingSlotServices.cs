@@ -5,6 +5,7 @@ using AppServices.Interfaces;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,7 +65,8 @@ namespace AppServices.Services
         {
             try
             {
-                return Task.FromResult(_mapper.Map<ParkingSlotDtoOutput>(_repo.Get<ParkingSlot>(x => x.Id == id)));
+                var test = _repo.Get<ParkingSlot>(x => x.Id == id);
+                return Task.FromResult(_mapper.Map<ParkingSlotDtoOutput>(_repo.Get<ParkingSlot>(x => x.Id == id).FirstOrDefault()));
             }
             catch (Exception)
             {
@@ -73,7 +75,7 @@ namespace AppServices.Services
 
         }
 
-        public Task<bool> Update(ParkingSlotDtoInput parkingSlotDtoInput)
+        public Task<bool> Update(UpdateParkingSlotDtoInput parkingSlotDtoInput)
         {
             var updated = _mapper.Map<ParkingSlot>(parkingSlotDtoInput);
             try
