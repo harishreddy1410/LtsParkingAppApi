@@ -25,6 +25,7 @@ namespace AppDomain.Models
 
         public Roles Role { get; set; }
 
+        
         public int EmployeeShiftId { get; set; }
 
         public virtual EmployeeShift EmployeeShift { get; set; }
