@@ -4,3 +4,9 @@
 
 /LtsParkingAppApi/.vs/LtsParkingAppApi/v15
 /LtsParkingAppApi/.vs/config
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj/Debug
+*/**/obj/Release
+/LtsParkingAppApi/AppDomain/bin\\Debug\\netcoreapp2.0
+/LtsParkingAppApi/AppDomain/obj

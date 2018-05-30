@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AppDomain.Contexts;
 using AppDomain.Models.Interfaces;
 using AppDomain.Repositories;
+using AppServices.AutoMapperProfileConfiguration;
 using AppServices.UserService;
 using LtsParkingAppApi.App_Start;
 using Microsoft.AspNetCore.Builder;
@@ -21,6 +22,7 @@ namespace LtsParkingAppApi
     {
         private IConfigurationRoot _config;
         private IHostingEnvironment _env;
+        private AutoMapper.MapperConfiguration _mapperConfiguration { get; set; }
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
@@ -30,6 +32,11 @@ namespace LtsParkingAppApi
             var builder = new ConfigurationBuilder()
                 .SetBasePath(_env.ContentRootPath)
                 .AddJsonFile("appsettings.json");
+            _mapperConfiguration = new  AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfileConfiguration());
+                //cfg.AddProfile(new AutoMapperProfileViewModelConfiguration());
+            });
 
             _config = builder.Build();
         }
@@ -43,7 +50,7 @@ namespace LtsParkingAppApi
 
             services.AddScoped<IRepositoryGet, EFRepositoryGet<AppDbContext>>();
             services.AddScoped<IRepository, EFRepository<AppDbContext>>();
-
+            services.AddSingleton<AutoMapper.IMapper>(sp => _mapperConfiguration.CreateMapper());
 
 
             var registerDI = new RegisterDependancyInjections(services, _config);

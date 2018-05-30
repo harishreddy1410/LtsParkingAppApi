@@ -28,7 +28,7 @@ namespace LtsParkingAppApi.Controllers
         {
             try
             {
-                return Json(_userProfileServices.GetUser(id: 2));
+                return Json(_userProfileServices.Get(id: 2));
             }
             catch (Exception ex)
             {

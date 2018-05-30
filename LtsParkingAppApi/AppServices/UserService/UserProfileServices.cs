@@ -1,23 +1,84 @@
 ﻿using AppDomain.Models;
 using AppDomain.Models.Interfaces;
+using AppServices.Dto;
+using AutoMapper;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AppServices.UserService
 {
     public class UserProfileServices : IUserProfileServices
     { 
-        public IRepository _repository;
-        public UserProfileServices(IRepository repository)
+        IRepository _repo;
+        IMapper _mapper;
+
+        public UserProfileServices(IRepository repo, IMapper mapper)
         {
-            _repository = repository;
+            _repo = repo;
+            _mapper = mapper;
         }
 
-        public UserProfile GetUser(int id = 0, string email = "")
+        public Task<bool> Create(UserProfileDtoInput userProfileDtoInput)
+        {
+            try
+            {
+                _repo.Create<UserProfile>(_mapper.Map<UserProfile>(userProfileDtoInput), "API");
+                return Task.FromResult(true);
+            }
+            catch (Exception)
+            {
+                return Task.FromResult(false);
+                throw;
+            }
+            
+        }
+
+        public Task<bool> Delete(int id, int? DeletedBy)
+        {
+            var toBeDeleted = _repo.GetById<UserProfile>(id);
+            try
+            {
+                toBeDeleted.IsDeleted = true;
+                toBeDeleted.IsActive = false;
+                toBeDeleted.ModifiedBy = DeletedBy;
+                _repo.Update(toBeDeleted);
+                return Task.FromResult(true);
+
+            }
+            catch (System.Exception)
+            {
+                return Task.FromResult(true);
+                throw;
+            }
+        }
+      
+        public Task<List<UserProfileDtoOutput>> GetAll(bool includeInactive)
+        {
+            return Task.FromResult(_mapper.Map<List<UserProfileDtoOutput>>(_repo.GetQueryable<UserProfile>(x => x.IsActive == (includeInactive == false ? true : x.IsActive))));
+        }
+
+        public Task<UserProfileDtoOutput>Get(int id = 0, string email = "")
         {
             if(id > 0)
-                return _repository.Get<UserProfile>(x => x.Id == id).FirstOrDefault();
+                return Task.FromResult( _mapper.Map<UserProfileDtoOutput>(_repo.Get<UserProfile>(x => x.Id == id).FirstOrDefault()));
             else
-                return _repository.Get<UserProfile>(x => x.Email == email).FirstOrDefault();
+                return Task.FromResult(_mapper.Map<UserProfileDtoOutput>(_repo.Get<UserProfile>(x => x.Email == email).FirstOrDefault()));
+        }
+
+        public Task<bool> Update(UserProfileDtoInput userProfileDtoInput)
+        {
+            var updated = _mapper.Map<UserProfile>(userProfileDtoInput);
+            try
+            {
+                _repo.Update(updated, "API");
+                return Task.FromResult(true);
+            }
+            catch(Exception ex)
+            {
+                return Task.FromResult(true);
+            }
         }
     }
 }
