@@ -5,6 +5,7 @@ using AppServices.Interfaces;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,7 +65,7 @@ namespace AppServices.Services
         {
             try
             {
-                return Task.FromResult(_mapper.Map<ParkingTrafficDtoOutput>(_repo.Get<ParkingTraffic>(x => x.Id == id)));
+                return Task.FromResult(_mapper.Map<ParkingTrafficDtoOutput>(_repo.Get<ParkingTraffic>(x => x.Id == id).FirstOrDefault()));
             }
             catch (Exception)
             {
@@ -86,6 +87,16 @@ namespace AppServices.Services
                 return Task.FromResult(true);
                 throw;
             }
+        }
+        public Task<List<ParkingTrafficDtoOutput>> GetVehicleTraffic(int vehicleId = 0)
+        {
+            return Task.FromResult(_mapper.Map<List<ParkingTrafficDtoOutput>>(_repo.Get<ParkingTraffic>(x => x.VehicleId == vehicleId)));
+
+        }
+
+        public Task<List<ParkingTrafficDtoOutput>> TodaysParkingTraffic(string location)
+        {
+            return Task.FromResult(_mapper.Map<List<ParkingTrafficDtoOutput>>(_repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlot.Location == location && x.CreatedDate.Date == DateTime.Today)));
         }
     }
 }

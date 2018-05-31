@@ -13,6 +13,7 @@ namespace LtsParkingAppApi.Helpers.AutoMapperProfile
         protected override void Configure()
         {
             CreateMap<UpdateParkingSlotDtoInput, UpdateParkingSlotViewModel>().ReverseMap().MaxDepth(1);
+            CreateMap<ParkingTrafficDtoInput, ParkingTrafficViewModel>().ReverseMap();
         }
     }
 }
