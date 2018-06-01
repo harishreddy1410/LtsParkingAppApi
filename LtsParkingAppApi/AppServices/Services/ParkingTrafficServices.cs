@@ -3,6 +3,7 @@ using AppDomain.Models.Interfaces;
 using AppServices.Dto;
 using AppServices.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,15 @@ namespace AppServices.Services
     {
         IRepository _repo;
         IMapper _mapper;
-
-        public ParkingTrafficServices(IRepository repo, IMapper mapper)
+        IParkingSlotServices _parkingSlotServices;
+        IGenericServices _genericServices;
+        public ParkingTrafficServices(IRepository repo, IMapper mapper, IParkingSlotServices parkingSlotServices,
+            IGenericServices genericServices)
         {
             _repo = repo;
             _mapper = mapper;
+            _parkingSlotServices = parkingSlotServices;
+            _genericServices = genericServices;
         }
 
         public Task<bool> Create(ParkingTrafficDtoInput parkingTrafficDtoInput)
@@ -97,6 +102,92 @@ namespace AppServices.Services
         public Task<List<ParkingTrafficDtoOutput>> TodaysParkingTraffic(string location)
         {
             return Task.FromResult(_mapper.Map<List<ParkingTrafficDtoOutput>>(_repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlot.Location == location && x.CreatedDate.Date == DateTime.Today)));
+        }
+
+
+        public ParkingSlotUpdateStatus ParkVehicle(ParkUnParkVehicleDtoInput parkUnParkVehicleDtoInput)
+        {
+           
+           
+
+            //var test = await _parkingSlotServices.Get(parkUnParkVehicleDtoInput.PlarkingSlotId);
+            var parkingSlot = _repo.GetById<ParkingSlot>(parkUnParkVehicleDtoInput.PlarkingSlotId);
+            var parkingUser = _repo.GetQueryable<UserProfile>(x=>x.Id ==parkUnParkVehicleDtoInput.UserProfileId,
+                null,
+                null,
+                null,
+                y=>y.EmployeeShift            
+            ).AsNoTracking().FirstOrDefault();
+            if(parkingSlot == null)
+            {
+                return new ParkingSlotUpdateStatus() {
+                    Success = false,
+                    ValidationMessage = ParkingSlotUpdateStatusResponse.INVALID_SLOT.ToString()
+                };
+            }
+            if (parkingUser == null)
+            {
+                return new ParkingSlotUpdateStatus()
+                {
+                    Success = false,
+                    ValidationMessage = ParkingSlotUpdateStatusResponse.INVALID_USERID.ToString()
+                };
+            }
+
+            //Check if slot is available 
+            if (!parkingSlot.IsOccupied && parkUnParkVehicleDtoInput.Status == PARKINGSTATUS.ParkingVehicle)
+            {
+                parkingSlot.IsOccupied = true;
+                _repo.Create<ParkingTraffic>(new ParkingTraffic() {
+                        ParkingSlotId = parkUnParkVehicleDtoInput.PlarkingSlotId,
+                        UserProfileId = parkUnParkVehicleDtoInput.UserProfileId,
+                        IsActive = true,
+                        VehicleId = parkUnParkVehicleDtoInput.VehicleId,
+                        CreatedBy = parkUnParkVehicleDtoInput.UserProfileId,
+                        InTime = _genericServices.GetCurrentTime(),
+                        OutTime =  parkingUser.EmployeeShift.ShiftEndTime
+                });
+                _repo.Save();
+
+                return new ParkingSlotUpdateStatus() {
+                    Success = true,
+                    ValidationMessage = ParkingSlotUpdateStatusResponse.PARK_SUCCESS.ToString() };
+            }
+            //Check if slot is not available do not allow to occupy 
+            else if (parkingSlot.IsOccupied && parkUnParkVehicleDtoInput.Status == PARKINGSTATUS.ParkingVehicle)
+            {
+                return new ParkingSlotUpdateStatus()
+                {
+                    Success = false,
+                    ValidationMessage = ParkingSlotUpdateStatusResponse.ALREADY_OCCUPIED.ToString()
+                };
+                //return slot is not available 
+            }
+            //If Parking slot is getting vacated by the user allow him to enter exit
+            else if(parkingSlot.IsOccupied && parkUnParkVehicleDtoInput.Status == PARKINGSTATUS.UnParkingVehicle) 
+            {
+                var lastParkingSlotByUser =  _repo.GetQueryable<ParkingTraffic>(x =>
+                    x.ParkingSlotId == parkUnParkVehicleDtoInput.PlarkingSlotId &&
+                    x.UserProfileId == parkUnParkVehicleDtoInput.UserProfileId && 
+                    x.IsActive == true
+                ).OrderBy(x => x.Id).LastOrDefault();
+                if(lastParkingSlotByUser != null)
+                {
+                    lastParkingSlotByUser.OutTime = _genericServices.GetCurrentTime();
+                    _repo.Save();
+                }
+                return new ParkingSlotUpdateStatus()
+                {
+                    Success = true,
+                    ValidationMessage = ParkingSlotUpdateStatusResponse.PARK_VACATED.ToString()
+                };
+            }
+
+            return new ParkingSlotUpdateStatus()
+            {
+                Success = false,
+                ValidationMessage = ParkingSlotUpdateStatusResponse.RECORD_NOT_UPDATED.ToString()
+            };
         }
     }
 }

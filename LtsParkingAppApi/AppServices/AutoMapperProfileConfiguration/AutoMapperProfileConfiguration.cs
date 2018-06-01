@@ -22,7 +22,8 @@ namespace AppServices.AutoMapperProfileConfiguration
 
             CreateMap<ParkingSlot, ParkingSlotDtoInput>().ReverseMap();
             CreateMap<ParkingSlot, ParkingSlotDtoOutput>().ReverseMap();
-            
+            CreateMap<ParkingSlot, UpdateParkingSlotDtoInput>().ReverseMap();
+
 
             CreateMap<ParkingTraffic, ParkingTrafficDtoInput>().ReverseMap();
             CreateMap<ParkingTraffic, ParkingTrafficDtoOutput>().ReverseMap();

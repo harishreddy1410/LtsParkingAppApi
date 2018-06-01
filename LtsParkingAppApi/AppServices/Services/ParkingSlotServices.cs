@@ -64,9 +64,8 @@ namespace AppServices.Services
         public Task<ParkingSlotDtoOutput> Get(int id = 0)
         {
             try
-            {
-                var test = _repo.Get<ParkingSlot>(x => x.Id == id);
-                return Task.FromResult(_mapper.Map<ParkingSlotDtoOutput>(_repo.Get<ParkingSlot>(x => x.Id == id).FirstOrDefault()));
+            {                
+                return Task.FromResult(_mapper.Map<ParkingSlotDtoOutput>(_repo.GetById<ParkingSlot>(id)));
             }
             catch (Exception)
             {
@@ -76,11 +75,18 @@ namespace AppServices.Services
         }
 
         public Task<bool> Update(UpdateParkingSlotDtoInput parkingSlotDtoInput)
-        {
-            var updated = _mapper.Map<ParkingSlot>(parkingSlotDtoInput);
+        {            
             try
             {
-                _repo.Update(updated, "API");
+                var updated = _repo.GetById<ParkingSlot>(parkingSlotDtoInput.Id);
+                if (updated != null)
+                {
+                    updated.IsOccupied = parkingSlotDtoInput.IsOccupied;
+                    updated.ModifiedDate = DateTime.Now;
+                    updated.ModifiedBy = 1;
+                    _repo.Save();
+                }
+                
                 return Task.FromResult(true);
             }
             catch (Exception ex)

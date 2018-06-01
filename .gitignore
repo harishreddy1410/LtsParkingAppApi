@@ -10,3 +10,5 @@
 */**/obj/Release
 /LtsParkingAppApi/AppDomain/bin\\Debug\\netcoreapp2.0
 /LtsParkingAppApi/AppDomain/obj
+/LtsParkingAppApi/LtsParkingAppApi/bin/Any CPU/Release/netcoreapp2.0
+/LtsParkingAppApi/LtsParkingAppApi/obj/Any CPU/Release/netcoreapp2.0

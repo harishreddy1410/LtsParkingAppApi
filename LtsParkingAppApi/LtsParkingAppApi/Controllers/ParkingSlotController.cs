@@ -57,13 +57,13 @@ namespace LtsParkingAppApi.Controllers
             }
         }
 
-        [HttpPost]                
-        public IActionResult ParkingSlot([FromBody]UpdateParkingSlotViewModel updateParkingSlot)
+        [HttpPut]        
+        public bool ParkingSlot([FromBody]UpdateParkingSlotViewModel updateParkingSlotViewModel)
         {
             try
             {
-                var _slot = _parkingSlotServices.Update( _mapper.Map<UpdateParkingSlotDtoInput>(updateParkingSlot));
-                return Ok(_slot);                
+                var _slot = _parkingSlotServices.Update( _mapper.Map<UpdateParkingSlotDtoInput>(updateParkingSlotViewModel));
+                return true;                
             }
             catch (Exception)
             {

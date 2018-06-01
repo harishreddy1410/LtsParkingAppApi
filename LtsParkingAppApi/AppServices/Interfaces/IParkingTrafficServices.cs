@@ -21,5 +21,7 @@ namespace AppServices.Interfaces
         Task<List<ParkingTrafficDtoOutput>> GetVehicleTraffic(int vehicleId = 0);
 
         Task<List<ParkingTrafficDtoOutput>> TodaysParkingTraffic(string location);
+
+        ParkingSlotUpdateStatus ParkVehicle(ParkUnParkVehicleDtoInput parkUnParkVehicleDtoInput);
     }
 }

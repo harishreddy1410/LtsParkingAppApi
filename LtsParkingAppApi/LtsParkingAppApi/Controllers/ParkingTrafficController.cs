@@ -44,7 +44,7 @@ namespace LtsParkingAppApi.Controllers
         [Route("VehicleParkingTraffic/{vehicleNo}")]
         public IActionResult VehicleParkingTraffic(int vehicleNo)
         {
-            var vehicleParkingTrafic = _parkingTrafficServices.GetVehicleTraffic(vno).Result;
+            var vehicleParkingTrafic = _parkingTrafficServices.GetVehicleTraffic(vehicleNo).Result;
             return Ok(vehicleParkingTrafic);
         }
 
@@ -64,13 +64,14 @@ namespace LtsParkingAppApi.Controllers
         {
             return _parkingTrafficServices.Create(_mapper.Map<ParkingTrafficDtoInput>(parkingTrafficViewModel)).Result;
         }
-        
-        //// PUT: api/ParkingTraffic/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-        
+
+        // POST: api/ParkingTraffic
+        [HttpPut]
+        public bool Put([FromBody]ParkingTrafficViewModel parkingTrafficViewModel)
+        {
+            return _parkingTrafficServices.Update(_mapper.Map<ParkingTrafficDtoInput>(parkingTrafficViewModel)).Result;
+        }
+
         //// DELETE: api/ApiWithActions/5
         //[HttpDelete("{id}")]
         //public void Delete(int id)
