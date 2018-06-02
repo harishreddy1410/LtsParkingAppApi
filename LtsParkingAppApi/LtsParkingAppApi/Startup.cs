@@ -14,6 +14,7 @@ using LtsParkingAppApi.Helpers.AutoMapperProfile;
 using LtsParkingAppApi.Helpers.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,13 +35,13 @@ namespace LtsParkingAppApi
             _env = env;
 
             var builder = new ConfigurationBuilder()
-                .SetBasePath(_env.ContentRootPath)
-                .AddJsonFile("appsettings.json");
-            _mapperConfiguration = new  AutoMapper.MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapperProfileConfiguration());
-                cfg.AddProfile(new AutoMapperProfileViewModelConfiguration());
-            });
+               .SetBasePath(_env.ContentRootPath)
+               .AddJsonFile("appsettings.json");
+            _mapperConfiguration = new AutoMapper.MapperConfiguration(cfg =>
+           {
+               cfg.AddProfile(new AutoMapperProfileConfiguration());
+               cfg.AddProfile(new AutoMapperProfileViewModelConfiguration());
+           });
 
             _config = builder.Build();
         }
@@ -51,17 +52,19 @@ namespace LtsParkingAppApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserProfileServices, UserProfileServices>();
-
             services.AddScoped<IRepositoryGet, EFRepositoryGet<AppDbContext>>();
             services.AddScoped<IRepository, EFRepository<AppDbContext>>();
             services.AddScoped<IParkingSlotServices, ParkingSlotServices>();
             services.AddScoped<IParkingTrafficServices, ParkingTrafficServices>();
             services.AddSingleton<AutoMapper.IMapper>(sp => _mapperConfiguration.CreateMapper());
-
-
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             var registerDI = new RegisterDependancyInjections(services, _config);
             registerDI.RegisterGenericMiddleware();
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["AppDbContext"]));           
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["AppDbContext"]));
             services
                 .AddMvc()
                 .AddMvcOptions(options => options.Filters.Add(typeof(ApiRequestValidator)));
@@ -70,10 +73,10 @@ namespace LtsParkingAppApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseDeveloperExceptionPage();
-            }
+            //}
             
             app.UseMvc();
         }
