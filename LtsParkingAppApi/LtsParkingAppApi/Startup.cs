@@ -51,6 +51,18 @@ namespace LtsParkingAppApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin()
+                    .AllowCredentials()
+                    );
+            });
+
+
             services.AddScoped<IUserProfileServices, UserProfileServices>();
             services.AddScoped<IRepositoryGet, EFRepositoryGet<AppDbContext>>();
             services.AddScoped<IRepository, EFRepository<AppDbContext>>();
@@ -77,7 +89,7 @@ namespace LtsParkingAppApi
             //{
                 app.UseDeveloperExceptionPage();
             //}
-            
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }

@@ -15,9 +15,45 @@ namespace AppServices.Services
     {
         IRepository _repo;
         IMapper _mapper;
-
+        List<ParkingSlotDtoOutput> parkingSlots = new List<ParkingSlotDtoOutput>();
         public ParkingSlotServices(IRepository repo, IMapper mapper)
         {
+            
+            parkingSlots.Add(new ParkingSlotDtoOutput()
+            {
+                Id = 1,
+                Name = "1",
+                IsOccupied = true,
+                SequenceOrder = 1
+            });
+            parkingSlots.Add(new ParkingSlotDtoOutput()
+            {
+                Id = 2,
+                Name = "2",
+                IsOccupied = false,
+                SequenceOrder = 2
+            });
+            parkingSlots.Add(new ParkingSlotDtoOutput()
+            {
+                Id = 3,
+                Name = "3",
+                IsOccupied = true,
+                SequenceOrder = 3
+            });
+            parkingSlots.Add(new ParkingSlotDtoOutput()
+            {
+                Id = 4,
+                Name = "4",
+                IsOccupied = false,
+                SequenceOrder = 4
+            });
+            parkingSlots.Add(new ParkingSlotDtoOutput()
+            {
+                Id = 5,
+                Name = "5",
+                IsOccupied = false,
+                SequenceOrder = 5
+            });
             _repo = repo;
             _mapper = mapper;
         }
@@ -58,14 +94,17 @@ namespace AppServices.Services
 
         public Task<List<ParkingSlotDtoOutput>> GetAll(bool includeInactive)
         {
-            return Task.FromResult(_mapper.Map<List<ParkingSlotDtoOutput>>(_repo.GetQueryable<ParkingSlot>(x => x.IsActive == (includeInactive == false ? true : x.IsActive))));
+            //return Task.FromResult(_mapper.Map<List<ParkingSlotDtoOutput>>(_repo.GetQueryable<ParkingSlot>(x => x.IsActive == (includeInactive == false ? true : x.IsActive))));
+
+            return Task.FromResult(parkingSlots);
         }
 
         public Task<ParkingSlotDtoOutput> Get(int id = 0)
         {
             try
-            {                
-                return Task.FromResult(_mapper.Map<ParkingSlotDtoOutput>(_repo.GetById<ParkingSlot>(id)));
+            {
+                return Task.FromResult(parkingSlots.Where(x => x.Id == id).FirstOrDefault());           
+                //return Task.FromResult(_mapper.Map<ParkingSlotDtoOutput>(_repo.GetById<ParkingSlot>(id)));
             }
             catch (Exception)
             {

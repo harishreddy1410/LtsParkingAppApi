@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace AppServices.Dto
+namespace LtsParkingAppApi.ViewModels
 {
-    public class ParkingSlotDtoOutput
+    public class ParkingSlotViewModel
     {
         public int Id { get; set; }
 
@@ -19,6 +20,5 @@ namespace AppServices.Dto
         public bool IsOccupied { get; set; }
 
         public int SequenceOrder { get; set; }
-
     }
 }

@@ -10,8 +10,8 @@ namespace LtsParkingAppApi.ViewModels
 
         public bool IsOccupied { get; set; }
 
-        public DateTime InTime { get; set; }
+        //public DateTime InTime { get; set; }
 
-        public DateTime OutTime { get; set; }
+        //public DateTime OutTime { get; set; }
     }
 }
