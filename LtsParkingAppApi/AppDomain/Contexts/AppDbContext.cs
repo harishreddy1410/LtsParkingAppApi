@@ -19,7 +19,19 @@ namespace AppDomain.Contexts
         }
 
         public DbSet<UserProfile> UserProfile { get; set; }
+
         public DbSet<EmployeeShift> EmployeeShift { get; set; }
-        
+
+        public DbSet<Company> Company { get; set; }
+
+        public DbSet<Location> Location { get; set; }
+
+        public DbSet<ParkingDivision> ParkingDivision { get; set; }
+
+        public DbSet<ParkingSlot> ParkingSlot { get; set; }
+
+        public DbSet<ParkingTraffic> ParkingTraffic { get; set; }
+
+        public DbSet<Vehicle> Vehicle { get; set; }
     }
 }

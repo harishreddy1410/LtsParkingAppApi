@@ -12,9 +12,10 @@ using System;
 namespace AppDomain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180604181415_restructureDatabase")]
+    partial class restructureDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,8 +119,6 @@ namespace AppDomain.Migrations
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
-
-                    b.Property<int>("SequenceOrder");
 
                     b.HasKey("Id");
 

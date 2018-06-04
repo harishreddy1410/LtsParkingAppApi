@@ -1,6 +1,8 @@
 ﻿using AppDomain.Contexts;
 using AppDomain.Models.Interfaces;
 using AppDomain.Repositories;
+using AppServices.Interfaces;
+using AppServices.Services;
 using AppServices.UserService;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +29,10 @@ namespace LtsParkingAppApi.App_Start
         internal void RegisterAppServices()
         {
             _services.AddScoped<IUserProfileServices, UserProfileServices>();
+            _services.AddScoped<IRepositoryGet, EFRepositoryGet<AppDbContext>>();
+            _services.AddScoped<IRepository, EFRepository<AppDbContext>>();
+            _services.AddScoped<IParkingSlotServices, ParkingSlotServices>();
+            _services.AddScoped<IParkingTrafficServices, ParkingTrafficServices>();
         }
 
         internal void RegisterGenericMiddleware()
