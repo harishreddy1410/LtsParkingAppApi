@@ -73,14 +73,14 @@ namespace AppServices.Services
 
         }
 
-        public Task<bool> Delete(int id, int? DeletedBy)
+        public Task<bool> Delete(int id, int? deletedBy)
         {
             var toBeDeleted = _repo.GetById<ParkingSlot>(id);
             try
             {
                 toBeDeleted.IsDeleted = true;
                 toBeDeleted.IsActive = false;
-                toBeDeleted.ModifiedBy = DeletedBy;
+                toBeDeleted.ModifiedBy = deletedBy;
                 _repo.Update(toBeDeleted);
                 return Task.FromResult(true);
 

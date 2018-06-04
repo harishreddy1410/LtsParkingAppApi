@@ -76,8 +76,16 @@ namespace LtsParkingAppApi.Controllers
         [HttpPost]
         public bool ParkingSlot([FromBody]ParkingSlotViewModel parkingSlotViewModel)
         {
-            return true;
             //return _parkingSlotServices.Create(_mapper.Map<ParkingSlotDtoInput>(parkingSlotViewModel)).Result;
+            return true;
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public string Delete(int id)
+        {
+            return "parking slot marked deleted";
+           //return _parkingSlotServices.Delete(id:id,deletedBy:null).Result;
         }
     }
 }

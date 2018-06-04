@@ -14,7 +14,7 @@ namespace AppServices.Interfaces
                                  
         Task<bool> Update(UpdateParkingSlotDtoInput userProfileDtoInput);
 
-        Task<bool> Delete(int id, int? DeletedBy);
+        Task<bool> Delete(int id, int? deletedBy);
 
         Task<List<ParkingSlotDtoOutput>> GetAll(bool includeInactive);
     }
