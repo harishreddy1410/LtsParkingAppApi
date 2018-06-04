@@ -68,6 +68,7 @@ namespace LtsParkingAppApi
             services.AddScoped<IRepository, EFRepository<AppDbContext>>();
             services.AddScoped<IParkingSlotServices, ParkingSlotServices>();
             services.AddScoped<IParkingTrafficServices, ParkingTrafficServices>();
+            services.AddScoped<IGenericServices, GenericServices>();
             services.AddSingleton<AutoMapper.IMapper>(sp => _mapperConfiguration.CreateMapper());
             services.Configure<IISOptions>(options =>
             {
