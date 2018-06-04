@@ -11,6 +11,7 @@ using System.Web;
 using AutoMapper;
 using LtsParkingAppApi.ViewModels;
 using AppServices.Interfaces;
+//using Serilog;
 
 namespace LtsParkingAppApi.Controllers
 {
@@ -20,11 +21,13 @@ namespace LtsParkingAppApi.Controllers
     {
         private readonly IParkingSlotServices _parkingSlotServices;
         private readonly IMapper _mapper;
+        //private readonly Serilog.ILogger _logger;
+
         public ParkingSlotController(IParkingSlotServices parkingSlotServices, IMapper mapper)
         {
             _parkingSlotServices = parkingSlotServices;
             _mapper = mapper;
-
+            //_logger = logger;
         }
         [HttpGet]        
         public IActionResult ParkingSlots()

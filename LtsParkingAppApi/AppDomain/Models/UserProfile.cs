@@ -34,6 +34,10 @@ namespace AppDomain.Models
         public string Email { get; set; }
 
         public virtual ParkingTraffic ParkingTraffic { get; set; }
+
+        public int CompanyId { get; set; }
+
+        public virtual Company Company { get; set; }
     }
 
     public enum Roles
