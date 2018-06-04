@@ -21,7 +21,8 @@ namespace AppDomain.Models
         [StringLength(100)]
         public string PreferredName { get; set; } 
         
-        public string Location { get; set; }
+        public int? LocationId { get; set; }
+        public virtual Location Location { get; set; }
 
         public Roles Role { get; set; }
 
