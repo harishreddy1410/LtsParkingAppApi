@@ -19,5 +19,7 @@ namespace AppServices.UserService
 
         Task<List<UserProfileDtoOutput>> GetAll(bool includeInactive);
 
+        Task<UserProfile> GetUserWithParkingArea(int userId);
+
     }
 }

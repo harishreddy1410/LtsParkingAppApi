@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppDomain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,6 +15,14 @@ namespace AppServices.Dto
 
         public string PreferredName { get; set; }
 
-        public string Location { get; set; }
+        public int? LocationId { get; set; }
+
+        public Roles Role { get; set; }
+
+        public int EmployeeShiftId { get; set; }
+
+        public string Email { get; set; }
+
+        public int CompanyId { get; set; }
     }
 }

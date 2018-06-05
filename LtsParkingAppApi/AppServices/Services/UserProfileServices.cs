@@ -60,8 +60,8 @@ namespace AppServices.UserService
         }
 
         public Task<UserProfileDtoOutput>Get(int id = 0, string email = "")
-        {
-            if(id > 0)
+        {            
+            if (id > 0)
                 return Task.FromResult( _mapper.Map<UserProfileDtoOutput>(_repo.Get<UserProfile>(x => x.Id == id).FirstOrDefault()));
             else
                 return Task.FromResult(_mapper.Map<UserProfileDtoOutput>(_repo.Get<UserProfile>(x => x.Email == email).FirstOrDefault()));
@@ -80,5 +80,37 @@ namespace AppServices.UserService
                 return Task.FromResult(true);
             }
         }
+
+        public Task<UserProfile> GetUserWithParkingArea(int userId)
+        {
+            var userProfile = _repo.GetQueryable<UserProfile>(x => x.Id == userId && x.IsActive == true && x.IsDeleted == false,
+                null,
+                null,
+                1,
+                y => y.Location).FirstOrDefault();
+            if (userProfile != null)
+            {
+                //userProfile.Location.ParkingDivisions.ToList().ForEach(x =>
+                //{
+                //    x.ParkingSlots = _repo.GetQueryable<ParkingSlot>(y => y.ParkingDivisionId == x.Id).ToList();
+
+                //});
+                userProfile.Location.ParkingDivisions = _repo.GetQueryable<ParkingDivision>(x =>
+                    x.LocationId == userProfile.LocationId,
+                    null,
+                    null,
+                    null,
+                    y => y.ParkingSlots).ToList();
+                userProfile.Location.ParkingDivisions.ToList().ForEach(
+                    x =>
+                        {
+                            x.ParkingSlots = _repo.GetQueryable<ParkingSlot>(y => y.ParkingDivisionId == x.Id, null, null, null, z => z.Company).ToList();
+                        }
+                    );
+            }
+
+            return Task.FromResult(userProfile);
+        }
+
     }
 }

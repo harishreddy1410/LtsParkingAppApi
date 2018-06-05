@@ -27,7 +27,7 @@ namespace AppDomain.Models
 
         public int ParkingDivisionId { get; set; }
 
-        public virtual ParkingDivision ParkingDivision { get; set; }
+        //public virtual ParkingDivision ParkingDivision { get; set; }
 
         //public virtual ParkingTraffic ParkingTraffic { get; set; }
     }

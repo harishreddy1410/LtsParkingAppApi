@@ -26,9 +26,15 @@ namespace LtsParkingAppApi.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public ObjectResult UserProfile(int id)
+        public ObjectResult UserProfile(int id = 0)
         {
             var data = _userprofileServices.Get(id).Result;
+            return Ok(data);
+        }
+        [HttpGet("{email}")]
+        public ObjectResult UserProfile(string email = "")
+        {
+            var data = _userprofileServices.Get(email:email).Result;
             return Ok(data);
         }
 
@@ -48,6 +54,22 @@ namespace LtsParkingAppApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        [HttpGet]
+        [Route("GetUserWithParkingArea/{userId}")]
+        public IActionResult GetUserWithParkingArea(int userId)
+        {
+            try
+            {
+
+                return Json(_userprofileServices.GetUserWithParkingArea(userId).Result,new Newtonsoft.Json.JsonSerializerSettings() { Formatting = Newtonsoft.Json.Formatting.Indented });
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

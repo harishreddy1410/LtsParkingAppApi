@@ -20,6 +20,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace LtsParkingAppApi
 {
@@ -80,7 +82,11 @@ namespace LtsParkingAppApi
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["AppDbContext"]));
             services
                 .AddMvc()
-                .AddMvcOptions(options => options.Filters.Add(typeof(ApiRequestValidator)));
+                .AddMvcOptions(options => options.Filters.Add(typeof(ApiRequestValidator)))
+                .AddJsonOptions(options => {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                }); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
