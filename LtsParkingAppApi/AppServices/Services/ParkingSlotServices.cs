@@ -134,5 +134,10 @@ namespace AppServices.Services
                 throw;
             }
         }
+
+        public Task<List<ParkingDivisionDtoOutput>> GetParkingLocation(int locationId)
+        {
+            return Task.FromResult(_mapper.Map<List<ParkingDivisionDtoOutput>>(_repo.GetQueryable<ParkingDivision>(x => x.LocationId == locationId, null, null, null, y => y.ParkingSlots).ToList()));
+        }
     }
 }

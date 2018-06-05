@@ -28,6 +28,7 @@ namespace AppServices.AutoMapperProfileConfiguration
             CreateMap<ParkingTraffic, ParkingTrafficDtoInput>().ReverseMap();
             CreateMap<ParkingTraffic, ParkingTrafficDtoOutput>().ReverseMap();
 
+            CreateMap<ParkingDivision, ParkingDivisionDtoOutput>().ReverseMap();
             base.Configure();
         }
     }

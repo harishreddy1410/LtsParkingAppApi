@@ -90,5 +90,13 @@ namespace LtsParkingAppApi.Controllers
             return "parking slot marked deleted";
            //return _parkingSlotServices.Delete(id:id,deletedBy:null).Result;
         }
+
+        [HttpGet]
+        [Route("GetLocationParkingSlots/{locationId}")]
+        public List<ParkingDivisionViewModel> GetLocationParkingSlots(int locationId)
+        {
+            return _mapper.Map<List<ParkingDivisionViewModel>>(_parkingSlotServices.GetParkingLocation(locationId).Result);
+        }
+
     }
 }

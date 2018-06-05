@@ -17,5 +17,7 @@ namespace AppServices.Interfaces
         Task<bool> Delete(int id, int? deletedBy);
 
         Task<List<ParkingSlotDtoOutput>> GetAll(bool includeInactive);
+
+        Task<List<ParkingDivisionDtoOutput>> GetParkingLocation(int locationId);
     }
 }
