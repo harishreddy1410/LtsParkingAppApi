@@ -189,5 +189,49 @@ namespace AppServices.Services
                 ValidationMessage = ParkingSlotUpdateStatusResponse.RECORD_NOT_UPDATED.ToString()
             };
         }
+
+        public Task<List<ParkingTrafficReportDtoOutput>> ParkingTrafficReport(DateTime from, DateTime to, int locationId)
+        {
+
+            var parkingReport = _repo.GetQueryable<ParkingTraffic>(
+                        x => x.UserProfile.LocationId == locationId && x.InTime.Date >= from.Date && x.OutTime <= to.Date, null, null, null,
+                        y => y.UserProfile,
+                        y => y.Vehicle,
+                        y => y.ParkingSlot
+                    )
+                    .AsNoTracking()
+                    .ToList()
+                    .Select(
+                            x =>
+                            new {
+                                x.UserProfile,
+                                x.Vehicle,
+                                x.InTime,
+                                x.OutTime,
+                                x.ParkingSlotId,
+                                x.ParkingSlot.Type,
+                            }
+                        )                    
+                    .Select(x=> new ParkingTrafficReportDtoOutput() {
+                                UserName = x.UserProfile.PreferredName ?? string.Concat( x.UserProfile.FirstName," ",x.UserProfile.LastName ),
+                                ParkingSlotId= x.ParkingSlotId,
+                                VehicleNumber = x.Vehicle.RegNumber,
+                                InTime = x.InTime,
+                                OutTime = x.OutTime,
+                                ParkingSlotType = x.Type.ToString(),
+                                VehicleType = x.Vehicle.Type
+                    });
+            return Task.FromResult(
+                    parkingReport.ToList()
+                );
+        }
+
+        public Task<List<LocationDtoOutput>> ParkingLocations()
+        {
+            return Task.FromResult<List<LocationDtoOutput>>(_repo.GetQueryable<Location>(x=>x.IsActive == true).AsNoTracking().Select(y => new LocationDtoOutput() {
+                Id = y.Id,
+                Name = y.Name
+            }).ToList());
+        }
     }
 }

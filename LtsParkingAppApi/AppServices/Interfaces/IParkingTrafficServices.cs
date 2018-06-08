@@ -23,5 +23,10 @@ namespace AppServices.Interfaces
         Task<List<ParkingTrafficDtoOutput>> TodaysParkingTraffic(string location);
 
         ParkingSlotUpdateStatus ParkVehicle(ParkUnParkVehicleDtoInput parkUnParkVehicleDtoInput);
+
+        Task<List<ParkingTrafficReportDtoOutput>> ParkingTrafficReport(DateTime from, DateTime to, int locationId);
+
+        Task<List<LocationDtoOutput>> ParkingLocations();
+
     }
 }

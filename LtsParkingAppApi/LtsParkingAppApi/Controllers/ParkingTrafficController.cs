@@ -57,6 +57,14 @@ namespace LtsParkingAppApi.Controllers
             return Ok(vehicleParkingTrafic);
         }
 
+        [HttpGet]
+        [Route("Report/{fromDate}/{toDate}/{locationId}")]
+        public IActionResult ParkingTrafficReport(DateTime fromDate,DateTime toDate,int locationId)
+        {
+            var vehicleParkingTrafic = _parkingTrafficServices.ParkingTrafficReport(fromDate,toDate,locationId).Result;
+            return Ok(vehicleParkingTrafic);
+        }
+
 
         // POST: api/ParkingTraffic
         [HttpPost]
@@ -70,6 +78,13 @@ namespace LtsParkingAppApi.Controllers
         public bool Put([FromBody]ParkingTrafficViewModel parkingTrafficViewModel)
         {
             return _parkingTrafficServices.Update(_mapper.Map<ParkingTrafficDtoInput>(parkingTrafficViewModel)).Result;
+        }
+
+        [HttpGet]
+        [Route("ParkingLocations")]
+        public IActionResult ParkingLocations()
+        {
+            return Ok(_parkingTrafficServices.ParkingLocations().Result);
         }
 
         //// DELETE: api/ApiWithActions/5
