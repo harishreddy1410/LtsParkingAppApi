@@ -85,7 +85,11 @@ namespace LtsParkingAppApi
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["AppDbContext"]));
             services
                 .AddMvc()
-                .AddMvcOptions(options => options.Filters.Add(typeof(ApiRequestValidator)))
+                .AddMvcOptions(options => {
+                    options.Filters.Add(typeof(ApiRequestValidator));
+                    options.Filters.Add(typeof(GlobalExceptionFilter));
+                        }
+                )
                 .AddJsonOptions(options => {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
