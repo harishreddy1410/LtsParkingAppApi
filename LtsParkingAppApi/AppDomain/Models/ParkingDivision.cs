@@ -22,6 +22,8 @@ namespace AppDomain.Models
 
        // public virtual Location Location { get; set; }
 
+        public Int16 SlotCapactity { get; set; }
+
         public virtual ICollection<ParkingSlot> ParkingSlots { get; set; }
     }
 }

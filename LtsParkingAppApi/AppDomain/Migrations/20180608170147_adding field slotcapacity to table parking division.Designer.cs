@@ -12,9 +12,10 @@ using System;
 namespace AppDomain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180608170147_adding field slotcapacity to table parking division")]
+    partial class addingfieldslotcapacitytotableparkingdivision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
