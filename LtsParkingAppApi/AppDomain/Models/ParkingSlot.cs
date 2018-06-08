@@ -1,4 +1,7 @@
-﻿using AppDomain.Models.AbstractClasses;
+﻿//---------------------------------------------------------------------------------------
+// Description: entity for the ParkingSlot table in database
+//---------------------------------------------------------------------------------------
+using AppDomain.Models.AbstractClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

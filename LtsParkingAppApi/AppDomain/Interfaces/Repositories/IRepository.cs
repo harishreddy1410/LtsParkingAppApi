@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿//---------------------------------------------------------------------------------------
+// Description: entity framework repository interface
+//---------------------------------------------------------------------------------------
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.EntityFrameworkCore.Storage;

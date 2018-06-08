@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: Contains API related to parking traffic details
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +20,7 @@ namespace LtsParkingAppApi.Controllers
     {
         private readonly IParkingTrafficServices _parkingTrafficServices;
         private readonly IMapper _mapper;
+
         public ParkingTrafficController(IParkingTrafficServices parkingTrafficServices,
             IMapper mapper)
         {
@@ -24,14 +28,13 @@ namespace LtsParkingAppApi.Controllers
             _mapper = mapper;
 
         }
-        // GET: api/ParkingTraffic
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
 
-        // GET: api/ParkingTraffic/5
+        
+        /// <summary>
+        /// retrieve specific parking traffic details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}", Name = "ParkingTraffic")]
         public IActionResult ParkingTraffic(int id)
         {
@@ -39,7 +42,11 @@ namespace LtsParkingAppApi.Controllers
             return Ok(parkingTrafic);
         }
 
-        // GET: https://localhost:44391/api/parkingtraffic/vehicleparkingtraffic/1
+        /// <summary>
+        /// retrieve parking traffic details for the vehicle
+        /// </summary>
+        /// <param name="vehicleNo"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("VehicleParkingTraffic/{vehicleNo}")]
         public IActionResult VehicleParkingTraffic(int vehicleNo)
@@ -48,7 +55,11 @@ namespace LtsParkingAppApi.Controllers
             return Ok(vehicleParkingTrafic);
         }
 
-        // GET: /api/parkingtraffic/TodaysParkingTraffic/blr
+        /// <summary>
+        /// retrieve parking traffic details for the current date
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("TodaysParkingTraffic/{location}")]
         public IActionResult TodaysParkingTraffic(string location)
@@ -58,24 +69,26 @@ namespace LtsParkingAppApi.Controllers
         }
 
 
-        // POST: api/ParkingTraffic
+        /// <summary>
+        /// update parking traffic details
+        /// </summary>
+        /// <param name="parkingTrafficViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public bool Post([FromBody]ParkingTrafficViewModel  parkingTrafficViewModel)
         {
             return _parkingTrafficServices.Create(_mapper.Map<ParkingTrafficDtoInput>(parkingTrafficViewModel)).Result;
         }
 
-        // POST: api/ParkingTraffic
+        /// <summary>
+        /// insert new parkign traffic details
+        /// </summary>
+        /// <param name="parkingTrafficViewModel"></param>
+        /// <returns></returns>
         [HttpPut]
         public bool Put([FromBody]ParkingTrafficViewModel parkingTrafficViewModel)
         {
             return _parkingTrafficServices.Update(_mapper.Map<ParkingTrafficDtoInput>(parkingTrafficViewModel)).Result;
         }
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

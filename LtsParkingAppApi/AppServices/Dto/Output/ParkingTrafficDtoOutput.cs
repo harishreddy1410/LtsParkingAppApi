@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: dto for retrieving parking traffic details
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Text;
 

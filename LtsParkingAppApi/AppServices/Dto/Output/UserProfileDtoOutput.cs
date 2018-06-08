@@ -1,4 +1,7 @@
-﻿using AppDomain.Models;
+﻿//---------------------------------------------------------------------------------------
+// Description: dto for retrieving user profile details
+//---------------------------------------------------------------------------------------
+using AppDomain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,8 +9,7 @@ using System.Text;
 namespace AppServices.Dto
 {
     public class UserProfileDtoOutput
-    {
-         
+    {         
         public int Id { get; set; }
         
         public string FirstName { get; set; }

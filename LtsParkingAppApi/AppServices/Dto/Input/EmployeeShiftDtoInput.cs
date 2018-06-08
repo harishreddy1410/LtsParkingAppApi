@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: dto for creating new employee shift
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Text;
 

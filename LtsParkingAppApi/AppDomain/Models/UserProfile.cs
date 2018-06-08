@@ -1,4 +1,7 @@
-﻿using AppDomain.Models.AbstractClasses;
+﻿//---------------------------------------------------------------------------------------
+// Description: entity for the UserProfile table in database
+//---------------------------------------------------------------------------------------
+using AppDomain.Models.AbstractClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,7 +37,7 @@ namespace AppDomain.Models
         [StringLength(100)]
         public string Email { get; set; }
 
-        public virtual ParkingTraffic ParkingTraffic { get; set; }
+        public virtual ICollection<ParkingTraffic> ParkingTraffic { get; set; }
 
         public int CompanyId { get; set; }
 

@@ -1,4 +1,8 @@
-﻿using AppServices.Dto;
+﻿//---------------------------------------------------------------------------------------
+// 
+// Description: Contains all mapping details betweeen view modela and dto
+//---------------------------------------------------------------------------------------
+using AppServices.Dto;
 using AutoMapper;
 using LtsParkingAppApi.ViewModels;
 using System;

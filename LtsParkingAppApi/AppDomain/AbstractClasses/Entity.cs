@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: contains attributes for the entity to maintain logging and  sofy delete
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

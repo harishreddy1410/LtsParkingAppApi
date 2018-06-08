@@ -13,6 +13,7 @@
     <Compile Remove="Migrations\20180529162103_addedInitialMigrationForTables.cs" />
     <Compile Remove="Migrations\20180530121013_removeNotMapped.cs" />
     <Compile Remove="Migrations\20180604181257_restructureDatabase.cs" />
+    <Compile Remove="Migrations\20180608103706_fixRelationShipIssueInParkingTrafficTable.cs" />
   </ItemGroup>
 
   <ItemGroup>

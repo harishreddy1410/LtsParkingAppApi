@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: view model used for the parking division
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

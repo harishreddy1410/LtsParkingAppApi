@@ -1,4 +1,7 @@
-﻿using AppDomain.Models;
+﻿//---------------------------------------------------------------------------------------
+// Description: default databse context for the api
+//---------------------------------------------------------------------------------------
+using AppDomain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 

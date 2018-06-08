@@ -1,4 +1,7 @@
-﻿using AppDomain.Models;
+﻿//---------------------------------------------------------------------------------------
+// Description: dto for creating new user profile
+//---------------------------------------------------------------------------------------
+using AppDomain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

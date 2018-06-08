@@ -1,4 +1,8 @@
-﻿using LtsParkingAppApi.Helpers.Validators;
+﻿//---------------------------------------------------------------------------------------
+// Description: validate all api requests based on the api token
+//---------------------------------------------------------------------------------------
+
+using LtsParkingAppApi.Helpers.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
