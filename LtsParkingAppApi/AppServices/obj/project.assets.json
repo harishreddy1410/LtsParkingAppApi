@@ -4079,11 +4079,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Hackathon\\LtsParkingAppApi\\LtsParkingAppApi\\AppServices\\AppServices.csproj",
+      "projectUniqueName": "C:\\Hackathon\\Team2\\LtsParkingAppApi\\LtsParkingAppApi\\AppServices\\AppServices.csproj",
       "projectName": "AppServices",
-      "projectPath": "C:\\Hackathon\\LtsParkingAppApi\\LtsParkingAppApi\\AppServices\\AppServices.csproj",
+      "projectPath": "C:\\Hackathon\\Team2\\LtsParkingAppApi\\LtsParkingAppApi\\AppServices\\AppServices.csproj",
       "packagesPath": "C:\\Users\\mkombiah\\.nuget\\packages\\",
-      "outputPath": "C:\\Hackathon\\LtsParkingAppApi\\LtsParkingAppApi\\AppServices\\obj\\",
+      "outputPath": "C:\\Hackathon\\Team2\\LtsParkingAppApi\\LtsParkingAppApi\\AppServices\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4104,8 +4104,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Hackathon\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\AppDomain.csproj": {
-              "projectPath": "C:\\Hackathon\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\AppDomain.csproj"
+            "C:\\Hackathon\\Team2\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\AppDomain.csproj": {
+              "projectPath": "C:\\Hackathon\\Team2\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\AppDomain.csproj"
             }
           }
         }

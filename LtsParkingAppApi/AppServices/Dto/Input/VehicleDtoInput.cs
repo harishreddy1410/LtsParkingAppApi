@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: dto for creating new vehicle
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Text;
 

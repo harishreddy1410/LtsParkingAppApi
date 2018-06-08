@@ -1,4 +1,7 @@
-﻿using AppDomain.Models.Interfaces;
+﻿//---------------------------------------------------------------------------------------
+// Description: entity interface
+//---------------------------------------------------------------------------------------
+using AppDomain.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

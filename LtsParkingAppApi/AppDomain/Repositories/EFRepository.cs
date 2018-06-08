@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿//---------------------------------------------------------------------------------------
+// Description: entity framework repository for all database operations
+//---------------------------------------------------------------------------------------
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Reflection;
 using System.Threading;

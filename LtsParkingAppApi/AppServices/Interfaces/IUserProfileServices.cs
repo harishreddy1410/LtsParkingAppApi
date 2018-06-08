@@ -1,11 +1,14 @@
-﻿using AppDomain.Models;
+﻿//---------------------------------------------------------------------------------------
+// Description: interface for the user profile service
+//---------------------------------------------------------------------------------------
+using AppDomain.Models;
 using AppServices.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppServices.UserService
+namespace AppServices.Interfaces
 {
     public interface IUserProfileServices
     {

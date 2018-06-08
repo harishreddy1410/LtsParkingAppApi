@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: view model used for updating the parking slot
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Text;
 

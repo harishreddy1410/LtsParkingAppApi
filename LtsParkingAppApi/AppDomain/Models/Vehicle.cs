@@ -1,4 +1,7 @@
-﻿using AppDomain.Models.AbstractClasses;
+﻿//---------------------------------------------------------------------------------------
+// Description: entity for the Vehicle table in database
+//---------------------------------------------------------------------------------------
+using AppDomain.Models.AbstractClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,7 +22,7 @@ namespace AppDomain.Models
 
         public string RegNumber { get; set; }
 
-        public virtual ParkingTraffic ParkingTraffic { get; set; }
+        public virtual ICollection<ParkingTraffic> ParkingTraffic { get; set; }
 
     }
 }

@@ -1,19 +1,26 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// // Description: Test Api
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AppServices.UserService;
+using AppServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace LtsParkingAppApi.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        IUserProfileServices _userProfileServices;
-        public ValuesController(IUserProfileServices userProfileServices)
+        private readonly IUserProfileServices _userProfileServices;
+        private readonly ILogger _logger;
+
+        public ValuesController(IUserProfileServices userProfileServices,ILogger logger)
         {
             _userProfileServices = userProfileServices;
+            _logger = logger;
         }
         // GET api/values
         [HttpGet]

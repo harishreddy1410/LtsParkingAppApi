@@ -1,4 +1,7 @@
-﻿using AppDomain.Models;
+﻿//---------------------------------------------------------------------------------------
+// Description: contains mapping details between entity and dto's
+//---------------------------------------------------------------------------------------
+using AppDomain.Models;
 using AppServices.Dto;
 using AutoMapper;
 using System;

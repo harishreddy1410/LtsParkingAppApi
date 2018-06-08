@@ -1,4 +1,7 @@
-﻿using AppDomain.Models;
+﻿//---------------------------------------------------------------------------------------
+// Description: crud operations for the vehicles
+//---------------------------------------------------------------------------------------
+using AppDomain.Models;
 using AppDomain.Models.Interfaces;
 using AppServices.Dto;
 using AppServices.Interfaces;
@@ -12,8 +15,8 @@ namespace AppServices.Services
 {
     public class VehicleServices : IVehicleServices
     {
-        IRepository _repo;
-        IMapper _mapper;
+        private readonly IRepository _repo;
+        private readonly IMapper _mapper;
 
         public VehicleServices(IRepository repo, IMapper mapper)
         {
@@ -21,6 +24,11 @@ namespace AppServices.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// create new vehicle
+        /// </summary>
+        /// <param name="vehicleDtoInput"></param>
+        /// <returns></returns>
         public Task<bool> Create(VehicleDtoInput vehicleDtoInput)
         {
             try
@@ -30,12 +38,17 @@ namespace AppServices.Services
             }
             catch (Exception)
             {
-                return Task.FromResult(false);
                 throw;
             }
 
         }
 
+        /// <summary>
+        /// delete the vehicle
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="DeletedBy"></param>
+        /// <returns></returns>
         public Task<bool> Delete(int id, int? DeletedBy)
         {
             var toBeDeleted = _repo.GetById<Vehicle>(id);
@@ -48,18 +61,34 @@ namespace AppServices.Services
                 return Task.FromResult(true);
 
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-                return Task.FromResult(true);
                 throw;
             }
         }
 
+        /// <summary>
+        /// return all the vehicles
+        /// </summary>
+        /// <param name="includeInactive"></param>
+        /// <returns></returns>
         public Task<List<VehicleDtoOutput>> GetAll(bool includeInactive)
         {
-            return Task.FromResult(_mapper.Map<List<VehicleDtoOutput>>(_repo.GetQueryable<Vehicle>(x => x.IsActive == (includeInactive == false ? true : x.IsActive))));
+            try
+            {
+                return Task.FromResult(_mapper.Map<List<VehicleDtoOutput>>(_repo.GetQueryable<Vehicle>(x => x.IsActive == (includeInactive == false ? true : x.IsActive) && x.IsDeleted == false)));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
+        /// <summary>
+        /// return any specific vehicle from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Task<VehicleDtoOutput> Get(int id = 0)
         {
             try
@@ -73,6 +102,11 @@ namespace AppServices.Services
            
         }
 
+        /// <summary>
+        /// update the vehicle details
+        /// </summary>
+        /// <param name="vehicleDtoInput"></param>
+        /// <returns></returns>
         public Task<bool> Update(VehicleDtoInput vehicleDtoInput)
         {
             var updated = _mapper.Map<Vehicle>(vehicleDtoInput);
@@ -81,9 +115,8 @@ namespace AppServices.Services
                 _repo.Update(updated, "API");
                 return Task.FromResult(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return Task.FromResult(true);
                 throw;
             }
         }

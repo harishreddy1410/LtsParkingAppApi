@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: entity framework repository for all database operations
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -41,19 +44,11 @@ namespace AppDomain.Repositories
         {
             try
             {
-                //includeProperties = includeProperties ?? string.Empty;
                 IQueryable<TEntity> query = context.Set<TEntity>();
                 if (filter != null)
                 {
                     query = query.Where(filter);
                 }
-
-                //foreach (var includeProperty in includeProperties.Split
-                //    (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                //{
-                //    query = query.Include("");
-
-                //}
 
                 if (includes != null)
                     foreach (var include in includes)

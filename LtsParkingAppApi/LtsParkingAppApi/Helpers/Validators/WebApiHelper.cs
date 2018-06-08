@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿//---------------------------------------------------------------------------------------
+// Description: used to validate the request token
+//---------------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

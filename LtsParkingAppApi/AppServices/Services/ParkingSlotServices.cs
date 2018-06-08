@@ -1,4 +1,7 @@
-﻿using AppDomain.Models;
+﻿//---------------------------------------------------------------------------------------
+// Description: crud oprations for the parking slots
+//---------------------------------------------------------------------------------------
+using AppDomain.Models;
 using AppDomain.Models.Interfaces;
 using AppServices.Dto;
 using AppServices.Interfaces;
@@ -13,9 +16,10 @@ namespace AppServices.Services
 {
     public class ParkingSlotServices : IParkingSlotServices
     {
-        IRepository _repo;
-        IMapper _mapper;
-        List<ParkingSlotDtoOutput> parkingSlots = new List<ParkingSlotDtoOutput>();
+        private readonly IRepository _repo;
+        private readonly IMapper _mapper;
+        private readonly List<ParkingSlotDtoOutput> parkingSlots = new List<ParkingSlotDtoOutput>();
+
         public ParkingSlotServices(IRepository repo, IMapper mapper)
         {
             
@@ -58,6 +62,11 @@ namespace AppServices.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// create new parking slot
+        /// </summary>
+        /// <param name="parkingSlotDtoInput"></param>
+        /// <returns></returns>
         public Task<bool> Create(ParkingSlotDtoInput parkingSlotDtoInput)
         {
             try
@@ -67,17 +76,22 @@ namespace AppServices.Services
             }
             catch (Exception)
             {
-                return Task.FromResult(false);
                 throw;
             }
 
         }
 
+        /// <summary>
+        /// delete any specific parking slot
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="deletedBy"></param>
+        /// <returns></returns>
         public Task<bool> Delete(int id, int? deletedBy)
         {
-            var toBeDeleted = _repo.GetById<ParkingSlot>(id);
             try
             {
+                var toBeDeleted = _repo.GetById<ParkingSlot>(id);
                 toBeDeleted.IsDeleted = true;
                 toBeDeleted.IsActive = false;
                 toBeDeleted.ModifiedBy = deletedBy;
@@ -85,26 +99,41 @@ namespace AppServices.Services
                 return Task.FromResult(true);
 
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-                return Task.FromResult(true);
                 throw;
             }
         }
 
+        /// <summary>
+        /// return all parking slots
+        /// </summary>
+        /// <param name="includeInactive"></param>
+        /// <returns></returns>
         public Task<List<ParkingSlotDtoOutput>> GetAll(bool includeInactive)
         {
-            //return Task.FromResult(_mapper.Map<List<ParkingSlotDtoOutput>>(_repo.GetQueryable<ParkingSlot>(x => x.IsActive == (includeInactive == false ? true : x.IsActive))));
+            try
+            {
+                //return Task.FromResult(_mapper.Map<List<ParkingSlotDtoOutput>>(_repo.GetQueryable<ParkingSlot>(x => x.IsActive == (includeInactive == false ? true : x.IsActive))));
 
-            return Task.FromResult(parkingSlots);
+                return Task.FromResult(parkingSlots);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
+        /// <summary>
+        /// return any specific parking slot
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Task<ParkingSlotDtoOutput> Get(int id = 0)
         {
             try
             {
-                return Task.FromResult(parkingSlots.Where(x => x.Id == id).FirstOrDefault());           
-                //return Task.FromResult(_mapper.Map<ParkingSlotDtoOutput>(_repo.GetById<ParkingSlot>(id)));
+                return Task.FromResult(parkingSlots.Where(x => x.Id == id).FirstOrDefault());
             }
             catch (Exception)
             {
@@ -113,6 +142,11 @@ namespace AppServices.Services
 
         }
 
+        /// <summary>
+        /// update the parking slot
+        /// </summary>
+        /// <param name="parkingSlotDtoInput"></param>
+        /// <returns></returns>
         public Task<bool> Update(UpdateParkingSlotDtoInput parkingSlotDtoInput)
         {            
             try
@@ -128,16 +162,33 @@ namespace AppServices.Services
                 
                 return Task.FromResult(true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return Task.FromResult(true);
                 throw;
             }
         }
 
+        /// <summary>
+        /// return parking slots for the location
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <returns></returns>
         public Task<List<ParkingDivisionDtoOutput>> GetParkingLocation(int locationId)
         {
-            return Task.FromResult(_mapper.Map<List<ParkingDivisionDtoOutput>>(_repo.GetQueryable<ParkingDivision>(x => x.LocationId == locationId, null, null, null, y => y.ParkingSlots).ToList()));
+            try
+            {
+                return Task.FromResult(_mapper.Map<List<ParkingDivisionDtoOutput>>(_repo.GetQueryable<ParkingDivision>(x => x.LocationId == locationId && x.IsActive == true && x.IsDeleted == false,
+                                                                                    null,
+                                                                                    null, 
+                                                                                    null, 
+                                                                                    y => y.ParkingSlots).ToList()));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

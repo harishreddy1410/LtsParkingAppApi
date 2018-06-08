@@ -3413,11 +3413,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Hackathon\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\AppDomain.csproj",
+      "projectUniqueName": "C:\\Hackathon\\Team2\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\AppDomain.csproj",
       "projectName": "AppDomain",
-      "projectPath": "C:\\Hackathon\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\AppDomain.csproj",
+      "projectPath": "C:\\Hackathon\\Team2\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\AppDomain.csproj",
       "packagesPath": "C:\\Users\\mkombiah\\.nuget\\packages\\",
-      "outputPath": "C:\\Hackathon\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\obj\\",
+      "outputPath": "C:\\Hackathon\\Team2\\LtsParkingAppApi\\LtsParkingAppApi\\AppDomain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

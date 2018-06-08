@@ -1,4 +1,7 @@
-﻿using AppServices.Dto;
+﻿//---------------------------------------------------------------------------------------
+// Description: interface for the parking slot service
+//---------------------------------------------------------------------------------------
+using AppServices.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;

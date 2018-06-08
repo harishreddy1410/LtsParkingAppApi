@@ -1,4 +1,7 @@
-﻿using System;
+﻿//---------------------------------------------------------------------------------------
+// Description: Contains API related to user vehicles
+//---------------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,24 +14,27 @@ using System.Web;
 using AutoMapper;
 using LtsParkingAppApi.ViewModels;
 using AppServices.Interfaces;
-//using Serilog;
 
 namespace LtsParkingAppApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+
     public class ParkingSlotController : Controller
     {
         private readonly IParkingSlotServices _parkingSlotServices;
         private readonly IMapper _mapper;
-        //private readonly Serilog.ILogger _logger;
 
         public ParkingSlotController(IParkingSlotServices parkingSlotServices, IMapper mapper)
         {
             _parkingSlotServices = parkingSlotServices;
             _mapper = mapper;
-            //_logger = logger;
         }
+
+        /// <summary>
+        /// return all the parking slots
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]        
         public IActionResult ParkingSlots()
         {
@@ -44,6 +50,12 @@ namespace LtsParkingAppApi.Controllers
             }
             
         }
+
+        /// <summary>
+        /// return specific parking slot
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         public IActionResult ParkingSlot(int id)
@@ -60,7 +72,12 @@ namespace LtsParkingAppApi.Controllers
             }
         }
 
-        [HttpPut]        
+        /// <summary>
+        /// update the parking slot details
+        /// </summary>
+        /// <param name="updateParkingSlotViewModel"></param>
+        /// <returns></returns>
+        [HttpPut]      
         public UpdateParkingSlotViewModel ParkingSlot([FromBody]UpdateParkingSlotViewModel updateParkingSlotViewModel)
         {
             try
@@ -76,6 +93,11 @@ namespace LtsParkingAppApi.Controllers
             }
         }
 
+        /// <summary>
+        /// create new parking slot
+        /// </summary>
+        /// <param name="parkingSlotViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public bool ParkingSlot([FromBody]ParkingSlotViewModel parkingSlotViewModel)
         {
@@ -83,6 +105,11 @@ namespace LtsParkingAppApi.Controllers
             return true;
         }
 
+        /// <summary>
+        /// delete the parking slot
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
         public string Delete(int id)
@@ -91,11 +118,17 @@ namespace LtsParkingAppApi.Controllers
            //return _parkingSlotServices.Delete(id:id,deletedBy:null).Result;
         }
 
+        /// <summary>
+        /// return parking slots for the location id
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetLocationParkingSlots/{locationId}")]
-        public List<ParkingDivisionViewModel> GetLocationParkingSlots(int locationId)
+        public IActionResult GetLocationParkingSlots(int locationId)
         {
-            return _mapper.Map<List<ParkingDivisionViewModel>>(_parkingSlotServices.GetParkingLocation(locationId).Result);
+            var _slots = _mapper.Map<List<ParkingDivisionViewModel>>(_parkingSlotServices.GetParkingLocation(locationId).Result);
+            return Ok(_slots);
         }
 
     }
