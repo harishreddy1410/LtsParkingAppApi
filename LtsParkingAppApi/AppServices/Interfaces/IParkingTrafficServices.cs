@@ -29,7 +29,7 @@ namespace AppServices.Interfaces
 
         Task<List<ParkingTrafficReportDtoOutput>> ParkingTrafficReport(DateTime from, DateTime to, int locationId);
 
-        //Task<List<LocationDtoOutput>> ParkingLocations();
+        Task<List<LocationDtoOutput>> ParkingLocations();
 
     }
 }
