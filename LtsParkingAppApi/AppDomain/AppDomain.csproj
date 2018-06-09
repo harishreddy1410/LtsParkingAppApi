@@ -14,6 +14,12 @@
     <Compile Remove="Migrations\20180530121013_removeNotMapped.cs" />
     <Compile Remove="Migrations\20180604181257_restructureDatabase.cs" />
     <Compile Remove="Migrations\20180608103706_fixRelationShipIssueInParkingTrafficTable.cs" />
+    <Compile Remove="Migrations\20180609085155_Adding relations.cs" />
+    <Compile Remove="Migrations\20180609093715_Adding relations.cs" />
+    <Compile Remove="Migrations\20180609094941_Adding relations.cs" />
+    <Compile Remove="Migrations\20180609102633_add required relations.cs" />
+    <Compile Remove="Migrations\20180609103006_add required relations.cs" />
+    <Compile Remove="Migrations\20180609103902_add required relations.cs" />
   </ItemGroup>
 
   <ItemGroup>

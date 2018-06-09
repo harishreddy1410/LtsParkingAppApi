@@ -300,12 +300,5 @@ namespace AppServices.Services
                 );
         }
 
-        public Task<List<LocationDtoOutput>> ParkingLocations()
-        {
-            return Task.FromResult<List<LocationDtoOutput>>(_repo.GetQueryable<Location>(x=>x.IsActive == true).AsNoTracking().Select(y => new LocationDtoOutput() {
-                Id = y.Id,
-                Name = y.Name
-            }).ToList());
-        }
     }
 }

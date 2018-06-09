@@ -33,6 +33,7 @@ namespace LtsParkingAppApi.App_Start
             _services.AddScoped<IRepository, EFRepository<AppDbContext>>();
             _services.AddScoped<IParkingSlotServices, ParkingSlotServices>();
             _services.AddScoped<IParkingTrafficServices, ParkingTrafficServices>();
+            _services.AddScoped<IParkingAreaService, ParkingAreaService>();
         }
 
         internal void RegisterGenericMiddleware()

@@ -19,5 +19,7 @@ namespace AppDomain.Models
         public string Name { get; set; }
 
         public virtual ICollection<ParkingDivision> ParkingDivisions { get; set; }
+
+        public virtual ICollection<Company> Companies { get; set; }
     }
 }

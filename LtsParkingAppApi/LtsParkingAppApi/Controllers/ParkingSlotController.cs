@@ -101,8 +101,7 @@ namespace LtsParkingAppApi.Controllers
         [HttpPost]
         public bool ParkingSlot([FromBody]ParkingSlotViewModel parkingSlotViewModel)
         {
-            //return _parkingSlotServices.Create(_mapper.Map<ParkingSlotDtoInput>(parkingSlotViewModel)).Result;
-            return true;
+            return _parkingSlotServices.Create(_mapper.Map<ParkingSlotDtoInput>(parkingSlotViewModel)).Result;            
         }
 
         /// <summary>

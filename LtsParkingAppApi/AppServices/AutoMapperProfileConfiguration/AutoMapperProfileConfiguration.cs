@@ -32,6 +32,7 @@ namespace AppServices.AutoMapperProfileConfiguration
             CreateMap<ParkingTraffic, ParkingTrafficDtoOutput>().ReverseMap();
 
             CreateMap<ParkingDivision, ParkingDivisionDtoOutput>().ReverseMap();
+            CreateMap<Company, CompanyDtoOutput>().ReverseMap();
             base.Configure();
         }
     }

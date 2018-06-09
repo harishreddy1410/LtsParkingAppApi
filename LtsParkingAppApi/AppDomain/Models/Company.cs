@@ -15,5 +15,9 @@ namespace AppDomain.Models
         public override int Id { get; set; }
 
         public string Name { get; set; }
+
+        public int ParkingLocationId { get; set; }
+
+        public virtual Location ParkingLocation { get; set; }
     }
 }

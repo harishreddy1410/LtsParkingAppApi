@@ -12,9 +12,10 @@ using System;
 namespace AppDomain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180609105248_adding Location FK to Company and Comapny FK to Parking Division")]
+    partial class addingLocationFKtoCompanyandComapnyFKtoParkingDivision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,6 +108,8 @@ namespace AppDomain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("CompanyId");
+
                     b.Property<int>("CreatedBy");
 
                     b.Property<DateTime>("CreatedDate");
@@ -128,6 +131,8 @@ namespace AppDomain.Migrations
                     b.Property<short>("SlotCapactity");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("LocationId");
 
@@ -301,6 +306,11 @@ namespace AppDomain.Migrations
 
             modelBuilder.Entity("AppDomain.Models.ParkingDivision", b =>
                 {
+                    b.HasOne("AppDomain.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("AppDomain.Models.Location")
                         .WithMany("ParkingDivisions")
                         .HasForeignKey("LocationId")
