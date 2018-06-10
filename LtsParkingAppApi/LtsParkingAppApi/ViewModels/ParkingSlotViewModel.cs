@@ -18,10 +18,21 @@ namespace LtsParkingAppApi.ViewModels
 
         public Int16 Level { get; set; }
 
-        public string Type { get; set; }
+        public VehicleTypeVM Type { get; set; }
 
         public bool IsOccupied { get; set; }
 
         public int SequenceOrder { get; set; }
+
+        public int CompanyId { get; set; }
+
+        public int ParkingDivisionId { get; set; }
+
+        public int CreatedBy { get; set; }
+    }
+    public enum VehicleTypeVM
+    {
+        TwoWheeler = 0,
+        FourWheeler = 1
     }
 }

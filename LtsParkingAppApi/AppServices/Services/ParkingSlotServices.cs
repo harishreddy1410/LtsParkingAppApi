@@ -6,6 +6,7 @@ using AppDomain.Models.Interfaces;
 using AppServices.Dto;
 using AppServices.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,46 +19,9 @@ namespace AppServices.Services
     {
         private readonly IRepository _repo;
         private readonly IMapper _mapper;
-        private readonly List<ParkingSlotDtoOutput> parkingSlots = new List<ParkingSlotDtoOutput>();
-
+       
         public ParkingSlotServices(IRepository repo, IMapper mapper)
-        {
-            
-            parkingSlots.Add(new ParkingSlotDtoOutput()
-            {
-                Id = 1,
-                Name = "1",
-                IsOccupied = true,
-                SequenceOrder = 1
-            });
-            parkingSlots.Add(new ParkingSlotDtoOutput()
-            {
-                Id = 2,
-                Name = "2",
-                IsOccupied = false,
-                SequenceOrder = 2
-            });
-            parkingSlots.Add(new ParkingSlotDtoOutput()
-            {
-                Id = 3,
-                Name = "3",
-                IsOccupied = true,
-                SequenceOrder = 3
-            });
-            parkingSlots.Add(new ParkingSlotDtoOutput()
-            {
-                Id = 4,
-                Name = "4",
-                IsOccupied = false,
-                SequenceOrder = 4
-            });
-            parkingSlots.Add(new ParkingSlotDtoOutput()
-            {
-                Id = 5,
-                Name = "5",
-                IsOccupied = false,
-                SequenceOrder = 5
-            });
+        {          
             _repo = repo;
             _mapper = mapper;
         }
@@ -72,6 +36,7 @@ namespace AppServices.Services
             try
             {
                 _repo.Create<ParkingSlot>(_mapper.Map<ParkingSlot>(parkingSlotDtoInput), "API");
+                _repo.Save();
                 return Task.FromResult(true);
             }
             catch (Exception)
@@ -114,9 +79,7 @@ namespace AppServices.Services
         {
             try
             {
-                //return Task.FromResult(_mapper.Map<List<ParkingSlotDtoOutput>>(_repo.GetQueryable<ParkingSlot>(x => x.IsActive == (includeInactive == false ? true : x.IsActive))));
-
-                return Task.FromResult(parkingSlots);
+                return Task.FromResult(_mapper.Map<List<ParkingSlotDtoOutput>>(_repo.GetQueryable<ParkingSlot>(x => x.IsActive == (includeInactive == false ? true : x.IsActive))));
             }
             catch (Exception)
             {
@@ -133,7 +96,7 @@ namespace AppServices.Services
         {
             try
             {
-                return Task.FromResult(parkingSlots.Where(x => x.Id == id).FirstOrDefault());
+                return Task.FromResult(_mapper.Map<ParkingSlotDtoOutput>(_repo.GetById<ParkingSlot>(id)));
             }
             catch (Exception)
             {
@@ -169,7 +132,7 @@ namespace AppServices.Services
         }
 
         /// <summary>
-        /// return parking slots for the location
+        /// return parking divisions with its active parking slots for the location
         /// </summary>
         /// <param name="locationId"></param>
         /// <returns></returns>
@@ -177,11 +140,19 @@ namespace AppServices.Services
         {
             try
             {
-                return Task.FromResult(_mapper.Map<List<ParkingDivisionDtoOutput>>(_repo.GetQueryable<ParkingDivision>(x => x.LocationId == locationId && x.IsActive == true && x.IsDeleted == false,
+                var divisions = _repo.GetQueryable<ParkingDivision>(
+                    x => x.LocationId == locationId && x.IsActive == true && x.IsDeleted == false,
                                                                                     null,
-                                                                                    null, 
-                                                                                    null, 
-                                                                                    y => y.ParkingSlots).ToList()));
+                                                                                    null,
+                                                                                    null,
+                                                                                    z => z.ParkingSlots
+                                                                                  )
+                                                                                  .ToList();
+                divisions.ForEach(x =>
+                {
+                    x.ParkingSlots = x.ParkingSlots.Where(z => z.IsActive == true).ToList();
+                });
+                return Task.FromResult(_mapper.Map<List<ParkingDivisionDtoOutput>>(divisions));
             }
             catch (Exception)
             {
@@ -190,5 +161,37 @@ namespace AppServices.Services
             }
             
         }
+
+        public Task<ParkingSlotDetailOutput> GetParkingSlotDetail(int slotId)
+        {
+            var slotDetail = _repo.GetQueryable<ParkingSlot>(x => x.Id == slotId, null, null, 1, 
+                y => y.Company)
+                .Select(y => new ParkingSlotDetailOutput() {
+                    CompanyName = y.Company.Name,
+                    Id = y.Id,
+                    IsOccupied = y.IsOccupied,
+                    Type = y.Type.ToString()                    
+
+                }).AsNoTracking()
+                .ToList();
+            
+            if (slotDetail.Count() > 0 && slotDetail.First().IsOccupied)
+            {
+             var userOccupiedSlot = _repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlotId == slotDetail.First().Id
+             && (x.CreatedDate - DateTime.Now).Days <= 1 && x.IsActive == true && x.IsDeleted == false, 
+                 null, null, null, y => y.UserProfile)
+                 .AsNoTracking();
+                if(userOccupiedSlot.Count() > 0)
+                {
+                    slotDetail.First().OccupiedBy = userOccupiedSlot.First().UserProfile.FirstName;
+                    slotDetail.First().InTime = userOccupiedSlot.First().InTime;
+                    slotDetail.First().OutTime = userOccupiedSlot.First().OutTime;
+                }
+            }
+
+            return Task.FromResult(slotDetail.FirstOrDefault());
+
+        }
+
     }
 }

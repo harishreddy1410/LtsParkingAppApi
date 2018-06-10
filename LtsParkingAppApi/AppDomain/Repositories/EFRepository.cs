@@ -71,17 +71,17 @@ namespace AppDomain.Repositories
         {
             if (entity is ICreatedInfo && createdBy != null)
             {
-                PropertyInfo prop = entity.GetType().GetProperty("CreatedBy", BindingFlags.Public | BindingFlags.Instance);
-                if (null != prop && prop.CanWrite)
-                {
-                    prop.SetValue(entity, createdBy, null);
-                }
+                //PropertyInfo prop = entity.GetType().GetProperty("CreatedBy", BindingFlags.Public | BindingFlags.Instance);
+                //if (null != prop && prop.CanWrite)
+                //{
+                //    prop.SetValue(entity, createdBy, null);
+                //}
 
-                PropertyInfo propCreated = entity.GetType().GetProperty("CreatedDate", BindingFlags.Public | BindingFlags.Instance);
-                if (null != propCreated && propCreated.CanWrite)
-                {
-                    propCreated.SetValue(entity, System.DateTime.UtcNow, null);
-                }
+                //PropertyInfo propCreated = entity.GetType().GetProperty("CreatedDate", BindingFlags.Public | BindingFlags.Instance);
+                //if (null != propCreated && propCreated.CanWrite)
+                //{
+                //    propCreated.SetValue(entity, System.DateTime.UtcNow, null);
+                //}
             }
             context.Set<TEntity>().Add(entity);
 

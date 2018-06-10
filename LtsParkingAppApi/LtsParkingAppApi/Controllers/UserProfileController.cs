@@ -22,14 +22,7 @@ namespace LtsParkingAppApi.Controllers
             _userprofileServices = userProfileServices;
         }
 
-
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
+        
         /// <summary>
         /// retrieve user profile for the id
         /// </summary>
@@ -47,7 +40,7 @@ namespace LtsParkingAppApi.Controllers
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        [HttpGet("{email}")]
+        [HttpGet("ByEmail/{email}")]
         public ObjectResult UserProfile(string email = "")
         {
             var data = _userprofileServices.Get(email:email).Result;

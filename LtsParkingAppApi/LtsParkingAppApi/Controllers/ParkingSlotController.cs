@@ -71,6 +71,26 @@ namespace LtsParkingAppApi.Controllers
                 throw;
             }
         }
+        /// <summary>
+        /// return specific parking slot with user details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetparkingSlotDetails/{id}")]
+        public IActionResult GetparkingSlotDetails(int id)
+        {
+            try
+            {
+                var _slot = _parkingSlotServices.GetParkingSlotDetail(id).Result;
+                return Ok(_slot);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// update the parking slot details
@@ -99,9 +119,9 @@ namespace LtsParkingAppApi.Controllers
         /// <param name="parkingSlotViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public bool ParkingSlot([FromBody]ParkingSlotViewModel parkingSlotViewModel)
+        public IActionResult ParkingSlot([FromBody]ParkingSlotViewModel parkingSlotViewModel)
         {
-            return _parkingSlotServices.Create(_mapper.Map<ParkingSlotDtoInput>(parkingSlotViewModel)).Result;            
+            return Ok( _parkingSlotServices.Create(_mapper.Map<ParkingSlotDtoInput>(parkingSlotViewModel)).Result);            
         }
 
         /// <summary>

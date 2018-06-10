@@ -22,5 +22,7 @@ namespace AppServices.Interfaces
         Task<List<ParkingSlotDtoOutput>> GetAll(bool includeInactive);
 
         Task<List<ParkingDivisionDtoOutput>> GetParkingLocation(int locationId);
+
+        Task<ParkingSlotDetailOutput> GetParkingSlotDetail(int slotId);
     }
 }

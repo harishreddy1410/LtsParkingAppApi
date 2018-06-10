@@ -6,6 +6,7 @@ using AppDomain.Models.Interfaces;
 using AppServices.Dto;
 using AppServices.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +77,8 @@ namespace AppServices.UserService
         {
             try
             {
-                return Task.FromResult(_mapper.Map<List<UserProfileDtoOutput>>(_repo.GetQueryable<UserProfile>(x => x.IsActive == (includeInactive == false ? true : x.IsActive) && x.IsDeleted == false)));
+                return Task.FromResult(_mapper.Map<List<UserProfileDtoOutput>>(
+                    _repo.GetQueryable<UserProfile>(x => x.IsActive == (includeInactive == false ? true : x.IsActive) && x.IsDeleted == false)));
             }
             catch (Exception)
             {
@@ -95,9 +97,15 @@ namespace AppServices.UserService
             try
             {
                 if (id > 0)
-                    return Task.FromResult(_mapper.Map<UserProfileDtoOutput>(_repo.Get<UserProfile>(x => x.Id == id).FirstOrDefault()));
+                    return Task.FromResult(_mapper.Map<UserProfileDtoOutput>(
+                        _repo.GetQueryable<UserProfile>(x => x.Id == id,null,null,null,y=>y.Location)
+                        .AsNoTracking()
+                        .FirstOrDefault()));
                 else
-                    return Task.FromResult(_mapper.Map<UserProfileDtoOutput>(_repo.Get<UserProfile>(x => x.Email == email).FirstOrDefault()));
+                    return Task.FromResult(_mapper.Map<UserProfileDtoOutput>(
+                        _repo.GetQueryable<UserProfile>(x => x.Email == email,null,null,1,y=>y.Location)
+                        .AsNoTracking()
+                        .FirstOrDefault()));
             }
             catch (Exception)
             {
