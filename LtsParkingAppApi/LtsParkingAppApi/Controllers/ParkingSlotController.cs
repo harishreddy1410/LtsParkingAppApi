@@ -150,5 +150,17 @@ namespace LtsParkingAppApi.Controllers
             return Ok(_slots);
         }
 
+
+        /// <summary>
+        /// Use to occupy or unoccpy the parking slot by user  
+        /// </summary>
+        /// <param name="parkingTrafficViewModel"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("OccupyUnoccupySlot")]
+        public IActionResult OccupyUnoccupySlot([FromBody]UpdateParkingSlotDtoInput parkingSlotViewModel)
+        {
+            return Ok(_parkingSlotServices.OccupyUnoccupySlot(_mapper.Map<UpdateParkingSlotDtoInput>(parkingSlotViewModel)).Result);
+        }
     }
 }

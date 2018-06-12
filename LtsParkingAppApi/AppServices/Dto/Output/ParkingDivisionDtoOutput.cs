@@ -18,5 +18,7 @@ namespace AppServices.Dto
         public int LocationId { get; set; }
         
         public virtual ICollection<ParkingSlotDtoOutput> ParkingSlots { get; set; }
+
+        
     }
 }

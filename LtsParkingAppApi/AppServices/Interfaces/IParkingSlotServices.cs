@@ -24,5 +24,7 @@ namespace AppServices.Interfaces
         Task<List<ParkingDivisionDtoOutput>> GetParkingLocation(int locationId);
 
         Task<ParkingSlotDetailOutput> GetParkingSlotDetail(int slotId);
+
+        Task<string> OccupyUnoccupySlot(UpdateParkingSlotDtoInput updateParkingSlotDtoInput);
     }
 }

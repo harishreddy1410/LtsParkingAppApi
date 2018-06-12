@@ -147,12 +147,29 @@ namespace AppServices.Services
                                                                                     null,
                                                                                     z => z.ParkingSlots
                                                                                   )
+                                                                                  .AsNoTracking()
                                                                                   .ToList();
                 divisions.ForEach(x =>
                 {
                     x.ParkingSlots = x.ParkingSlots.Where(z => z.IsActive == true).ToList();
                 });
-                return Task.FromResult(_mapper.Map<List<ParkingDivisionDtoOutput>>(divisions));
+
+                var divisionsDto = _mapper.Map<List<ParkingDivisionDtoOutput>>(divisions);
+                divisionsDto.SelectMany(x => x.ParkingSlots)
+                    .ToList()
+                    .ForEach(s =>
+                    {
+                        if (s.IsOccupied)
+                        {
+                            s.SlotOccupiedByUserId = _repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlotId == s.Id 
+                            //&& (x.CreatedDate - DateTime.Now).Hours <= 24 
+                            && x.IsExpired == false && x.IsActive == true && x.IsDeleted == false,null, null, null, y => y.UserProfile)
+                                .OrderByDescending(x => x.Id)
+                                .AsNoTracking()
+                                .FirstOrDefault()?.UserProfileId;
+                        }
+                    });
+                return Task.FromResult(divisionsDto);
             }
             catch (Exception)
             {
@@ -170,28 +187,123 @@ namespace AppServices.Services
                     CompanyName = y.Company.Name,
                     Id = y.Id,
                     IsOccupied = y.IsOccupied,
-                    Type = y.Type.ToString()                    
-
-                }).AsNoTracking()
-                .ToList();
+                    Type = y.Type.ToString()
+                })
+                .AsNoTracking()
+                .FirstOrDefault();
             
-            if (slotDetail.Count() > 0 && slotDetail.First().IsOccupied)
+            if (slotDetail != null && slotDetail.IsOccupied)
             {
-             var userOccupiedSlot = _repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlotId == slotDetail.First().Id
-             && (x.CreatedDate - DateTime.Now).Days <= 1 && x.IsActive == true && x.IsDeleted == false, 
-                 null, null, null, y => y.UserProfile)
-                 .AsNoTracking();
-                if(userOccupiedSlot.Count() > 0)
+                var userOccupiedSlot = _repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlotId == slotDetail.Id
+                //&& (x.CreatedDate - DateTime.Now).Days <= 1 
+                 && x.IsExpired == false && x.IsActive == true && x.IsDeleted == false, 
+                    null, null, null, y => y.UserProfile)
+                    .OrderByDescending(x=>x.Id)
+                    .AsNoTracking()
+                    .FirstOrDefault();
+
+                if(userOccupiedSlot != null)
                 {
-                    slotDetail.First().OccupiedBy = userOccupiedSlot.First().UserProfile.FirstName;
-                    slotDetail.First().InTime = userOccupiedSlot.First().InTime;
-                    slotDetail.First().OutTime = userOccupiedSlot.First().OutTime;
+                    slotDetail.OccupiedBy = userOccupiedSlot.UserProfile.FirstName;
+                    slotDetail.InTime = userOccupiedSlot.InTime;
+                    slotDetail.OutTime = userOccupiedSlot.OutTime;
+                    slotDetail.SlotOccupiedByUserId = userOccupiedSlot.UserProfileId;
                 }
             }
 
-            return Task.FromResult(slotDetail.FirstOrDefault());
+            return Task.FromResult(slotDetail);
 
         }
 
+
+        public Task<string> OccupyUnoccupySlot(UpdateParkingSlotDtoInput updateParkingSlotDtoInput)
+        {
+            if(updateParkingSlotDtoInput != null)
+            {                
+                var slot = _repo.GetById<ParkingSlot>(updateParkingSlotDtoInput.Id);
+
+                //Check if user is releasing the occupied slot 
+                var occupiedSlot = _repo.GetQueryable<ParkingTraffic>(x => x.UserProfileId == updateParkingSlotDtoInput.UserId 
+                && !updateParkingSlotDtoInput.IsOccupied && x.IsExpired == false && 
+                x.ParkingSlotId == updateParkingSlotDtoInput.Id,null,null,1,y=>y.ParkingSlot).FirstOrDefault();
+                if(occupiedSlot != null)
+                {
+                    occupiedSlot.IsExpired = true;
+                    occupiedSlot.ParkingSlot.IsOccupied = false;
+                    occupiedSlot.OutTime = DateTime.Now;
+                    _repo.Save();
+                    return Task.FromResult( $"You have released slot {occupiedSlot.ParkingSlotId} successfully");
+                }
+
+                //Chec if user is trying to occupy more slots 
+                var slotOfOccupied = _repo.GetQueryable<ParkingTraffic>(x => x.UserProfileId == updateParkingSlotDtoInput.UserId && x.IsExpired == false, null, null, 1)
+                    .AsNoTracking();
+                if (slotOfOccupied.Count() > 0)
+                {
+                    return Task.FromResult($"You have found occupying slot {slotOfOccupied.First().ParkingSlotId } ,please release it  before occupying other slot");
+                }
+                //Check who is unoccupying slot and unoccpy if user mathches
+                if (slot != null && slot.IsOccupied && !updateParkingSlotDtoInput.IsOccupied)
+                {
+                    var userOccupiedSlot = _repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlotId == slot.Id
+                                               && (x.CreatedDate - DateTime.Now).Days <= 1 && x.IsActive == true && x.IsDeleted == false,
+                                                   null, null, null, y => y.UserProfile)
+                                                   .OrderByDescending(x => x.Id)                                                   
+                                                   .FirstOrDefault();
+
+                    if(userOccupiedSlot != null && userOccupiedSlot.UserProfileId == updateParkingSlotDtoInput.UserId)
+                    {
+                        slot.IsOccupied = false;
+                        userOccupiedSlot.OutTime = DateTime.Now;
+                        _repo.Save();
+                        return Task.FromResult("Slot is released successfully");
+                    }
+                    else
+                    {
+                        return Task.FromResult("Slot is occupied by other vehicle owner");
+                    }
+                }
+                //Check in case user has clicked multiple times 
+                if (slot != null && slot.IsOccupied && updateParkingSlotDtoInput.IsOccupied)
+                {
+                    var userOccupiedSlot = _repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlotId == slot.Id
+                                               && (x.CreatedDate - DateTime.Now).Days <= 1 && x.IsActive == true && x.IsDeleted == false,
+                                                   null, null, null, y => y.UserProfile)
+                                                   .OrderByDescending(x => x.Id)
+                                                   .FirstOrDefault();
+                    if (userOccupiedSlot != null && userOccupiedSlot.UserProfileId == updateParkingSlotDtoInput.UserId)
+                    {                       
+                        return Task.FromResult("You have already occupied this slot");
+                    }                    
+                }
+
+                //Check who is occupying parking slot
+                if (slot != null && !slot.IsOccupied && updateParkingSlotDtoInput.IsOccupied)
+                {
+                    slot.IsOccupied = true;
+                    _repo.Create<ParkingTraffic>(new ParkingTraffic()
+                    {
+                        IsActive = true,
+                        IsDeleted = false,
+                        CreatedBy = updateParkingSlotDtoInput.UserId,
+                        CreatedDate = DateTime.Now,
+                        InTime = DateTime.Now,
+                        ModifiedBy = null,
+                        ModifiedDate = null,
+                        ParkingSlotId = updateParkingSlotDtoInput.Id,
+                        UserProfileId = updateParkingSlotDtoInput.UserId,
+                        OutTime = DateTime.Now.AddHours(9),
+                        //Using one user one vehicle based approach
+                        VehicleId = _repo.GetQueryable<Vehicle>(x => x.UserProfileId == updateParkingSlotDtoInput.UserId).FirstOrDefault()?.Id ?? 1
+                    });
+                    _repo.Save();
+                    return Task.FromResult($"You have occupied slot {slot.Id} successfully");
+                }
+
+
+            }
+
+            return Task.FromResult("Invalid parking slot data");
+        }
     }
 }

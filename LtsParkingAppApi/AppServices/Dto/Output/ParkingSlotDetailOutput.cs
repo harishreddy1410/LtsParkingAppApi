@@ -19,5 +19,7 @@ namespace AppServices.Dto
         public DateTime OutTime { get; set; }
 
         public string OccupiedBy { get; set; }
+
+        public int SlotOccupiedByUserId { get; set; }
     }
 }

@@ -29,5 +29,7 @@ namespace AppDomain.Models
         public DateTime InTime { get; set; }
 
         public DateTime OutTime { get; set; }
+
+        public bool IsExpired { get; set; }
     }
 }
