@@ -110,14 +110,15 @@ namespace AppServices.Services
         /// </summary>
         /// <param name="parkingSlotDtoInput"></param>
         /// <returns></returns>
-        public Task<bool> Update(UpdateParkingSlotDtoInput parkingSlotDtoInput)
+        public Task<bool> Update(ParkingSlotEditFormDtoOutput parkingSlotDtoInput)
         {            
             try
             {
                 var updated = _repo.GetById<ParkingSlot>(parkingSlotDtoInput.Id);
                 if (updated != null)
                 {
-                    updated.IsOccupied = parkingSlotDtoInput.IsOccupied;
+                    updated.CompanyId = parkingSlotDtoInput.CompanyId;
+                    updated.IsActive = parkingSlotDtoInput.IsActive;
                     updated.ModifiedDate = DateTime.Now;
                     updated.ModifiedBy = 1;
                     _repo.Save();
@@ -130,6 +131,8 @@ namespace AppServices.Services
                 throw;
             }
         }
+
+
 
         /// <summary>
         /// return parking divisions with its active parking slots for the location
@@ -196,7 +199,7 @@ namespace AppServices.Services
             {
                 var userOccupiedSlot = _repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlotId == slotDetail.Id
                 //&& (x.CreatedDate - DateTime.Now).Days <= 1 
-                 && x.IsExpired == false && x.IsActive == true && x.IsDeleted == false, 
+                 && x.IsExpired == false && x.IsActive && !x.IsDeleted, 
                     null, null, null, y => y.UserProfile)
                     .OrderByDescending(x=>x.Id)
                     .AsNoTracking()
@@ -304,6 +307,23 @@ namespace AppServices.Services
             }
 
             return Task.FromResult("Invalid parking slot data");
+        }
+
+        public Task<List<ParkingSlotEditFormDtoOutput>> GetDivisionParkingSlots(int divisionId)
+        {
+            return Task.FromResult(_repo.GetQueryable<ParkingSlot>(x => x.ParkingDivisionId == divisionId && x.IsActive && !x.IsDeleted, null, null, null,
+                y => y.Company)
+                .Select(
+                    y => new ParkingSlotEditFormDtoOutput() {
+                          CompanyName =   y.Company.Name,
+                            Id = y.Id,
+                            Type  = y.Type.ToString(),
+                            IsActive = y.IsActive,
+                            CompanyId = y.CompanyId
+                         }
+                )
+                .AsNoTracking()
+                .ToList());
         }
     }
 }

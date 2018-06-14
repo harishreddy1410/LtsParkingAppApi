@@ -98,13 +98,12 @@ namespace LtsParkingAppApi.Controllers
         /// <param name="updateParkingSlotViewModel"></param>
         /// <returns></returns>
         [HttpPut]      
-        public UpdateParkingSlotViewModel ParkingSlot([FromBody]UpdateParkingSlotViewModel updateParkingSlotViewModel)
+        public IActionResult ParkingSlot([FromBody]ParkingSlotEditFormDtoOutput updateParkingSlotViewModel)
         {
             try
             {
-                //var _slot = _parkingSlotServices.Update( _mapper.Map<UpdateParkingSlotDtoInput>(updateParkingSlotViewModel));
-                //return true;                
-                return updateParkingSlotViewModel;
+               return Ok(_parkingSlotServices.Update(updateParkingSlotViewModel).Result);
+                
             }
             catch (Exception)
             {
@@ -161,6 +160,13 @@ namespace LtsParkingAppApi.Controllers
         public IActionResult OccupyUnoccupySlot([FromBody]UpdateParkingSlotDtoInput parkingSlotViewModel)
         {
             return Ok(_parkingSlotServices.OccupyUnoccupySlot(_mapper.Map<UpdateParkingSlotDtoInput>(parkingSlotViewModel)).Result);
+        }
+
+        [HttpGet]
+        [Route("GetDivisionParkingSlots/{divisionId}")]
+        public IActionResult GetDivisionParkingSlots(int divisionId)
+        {
+            return Ok(_parkingSlotServices.GetDivisionParkingSlots(divisionId).Result);
         }
     }
 }
