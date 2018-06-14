@@ -15,7 +15,7 @@ namespace AppServices.Interfaces
 
         Task<bool> Create(ParkingSlotDtoInput userProfileDtoInput);
                                  
-        Task<bool> Update(UpdateParkingSlotDtoInput userProfileDtoInput);
+        Task<bool> Update(ParkingSlotEditFormDtoOutput parkingSlotDtoInput);
 
         Task<bool> Delete(int id, int? deletedBy);
 
@@ -26,5 +26,7 @@ namespace AppServices.Interfaces
         Task<ParkingSlotDetailOutput> GetParkingSlotDetail(int slotId);
 
         Task<string> OccupyUnoccupySlot(UpdateParkingSlotDtoInput updateParkingSlotDtoInput);
+
+        Task<List<ParkingSlotEditFormDtoOutput>> GetDivisionParkingSlots(int divisionId);
     }
 }
