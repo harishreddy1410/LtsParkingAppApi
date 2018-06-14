@@ -23,6 +23,8 @@ namespace AppServices.Dto
 
         public int SequenceOrder { get; set; }
 
+        public int CompanyId { get; set; }
+
         public int? SlotOccupiedByUserId { get; set; }
 
         public int CompanyId { get; set; }

@@ -198,8 +198,7 @@ namespace AppServices.Services
             if (slotDetail != null && slotDetail.IsOccupied)
             {
                 var userOccupiedSlot = _repo.GetQueryable<ParkingTraffic>(x => x.ParkingSlotId == slotDetail.Id
-                //&& (x.CreatedDate - DateTime.Now).Days <= 1 
-                 && x.IsExpired == false && x.IsActive && !x.IsDeleted, 
+                 && x.IsExpired == false && x.IsActive == true && x.IsDeleted == false, 
                     null, null, null, y => y.UserProfile)
                     .OrderByDescending(x=>x.Id)
                     .AsNoTracking()
@@ -207,7 +206,7 @@ namespace AppServices.Services
 
                 if(userOccupiedSlot != null)
                 {
-                    slotDetail.OccupiedBy = userOccupiedSlot.UserProfile.FirstName;
+                    slotDetail.OccupiedBy = userOccupiedSlot.UserProfile.FirstName + " " + userOccupiedSlot.UserProfile.LastName;
                     slotDetail.InTime = userOccupiedSlot.InTime;
                     slotDetail.OutTime = userOccupiedSlot.OutTime;
                     slotDetail.SlotOccupiedByUserId = userOccupiedSlot.UserProfileId;
