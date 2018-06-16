@@ -23,6 +23,8 @@ namespace LtsParkingAppApi.Helpers.AutoMapperProfile
             CreateMap<ParkingSlotDtoOutput, ParkingSlotViewModel>().ReverseMap();
             CreateMap<CompanyDtoOutput, CompanyViewModel>().ReverseMap();
             CreateMap<LocationDtoOutput, LocationViewModel>().ReverseMap();
+
+            CreateMap<EmailDtoInput, EmailViewModel>().ReverseMap();
         }
     }
 }
