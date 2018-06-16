@@ -19,5 +19,7 @@ namespace LtsParkingAppApi.ViewModels
         public int LocationId { get; set; }
 
         public List<ParkingSlotViewModel> ParkingSlots { get; set; }
+
+        public string LocationDesignAttribute { get; set; }
     }
 }

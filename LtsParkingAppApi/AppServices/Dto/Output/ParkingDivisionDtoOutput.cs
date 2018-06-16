@@ -19,6 +19,6 @@ namespace AppServices.Dto
         
         public virtual ICollection<ParkingSlotDtoOutput> ParkingSlots { get; set; }
 
-        
+        public string LocationDesignAttribute { get; set; }
     }
 }

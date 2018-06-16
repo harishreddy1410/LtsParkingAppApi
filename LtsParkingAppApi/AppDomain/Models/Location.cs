@@ -21,5 +21,8 @@ namespace AppDomain.Models
         public virtual ICollection<ParkingDivision> ParkingDivisions { get; set; }
 
         public virtual ICollection<Company> Companies { get; set; }
+
+        [StringLength(100)]
+        public string LocationDesignAttribute { get; set; }
     }
 }

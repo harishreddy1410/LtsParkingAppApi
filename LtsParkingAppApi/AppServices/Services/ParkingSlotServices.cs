@@ -148,7 +148,7 @@ namespace AppServices.Services
                                                                                     null,
                                                                                     null,
                                                                                     null,
-                                                                                    z => z.ParkingSlots
+                                                                                    z => z.ParkingSlots                                                                                    
                                                                                   )
                                                                                   .AsNoTracking()
                                                                                   .ToList();
@@ -172,6 +172,12 @@ namespace AppServices.Services
                                 .FirstOrDefault()?.UserProfileId;
                         }
                     });
+
+                if(divisionsDto.Count > 0)
+                {
+                    divisionsDto.First().LocationDesignAttribute = _repo.GetById<Location>(divisionsDto.First().LocationId).LocationDesignAttribute;
+                }
+
                 return Task.FromResult(divisionsDto);
             }
             catch (Exception)
