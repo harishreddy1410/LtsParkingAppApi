@@ -39,7 +39,7 @@ namespace AppServices.Services
                 var htmlContent = input.Message;
                 var plainText = input.Message;
                 var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, toEmailAddress, subject,plainText, htmlContent);
-                var response = await client.SendEmailAsync(msg);
+                var response = await client.SendEmailAsync(msg);               
                 return await Task.FromResult(true);
             }
             catch (Exception)

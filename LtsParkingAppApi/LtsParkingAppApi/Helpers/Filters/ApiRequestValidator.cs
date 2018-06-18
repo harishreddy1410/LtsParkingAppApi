@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace LtsParkingAppApi.Helpers.Filters
 {
+    /// <summary>
+    /// Global Api request validator to validate the API calls
+    /// </summary>
     public class ApiRequestValidator : IAuthorizationFilter
     {
         private IConfiguration _config;
@@ -26,8 +29,8 @@ namespace LtsParkingAppApi.Helpers.Filters
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            //if (!WebApiHelper.ValidateInternalToken(context.HttpContext.Request, _config))
-            //    throw new UnauthorizedAccessException();
+            if (!WebApiHelper.ValidateInternalToken(context.HttpContext.Request, _config))
+                throw new UnauthorizedAccessException();
         }
     }
 }

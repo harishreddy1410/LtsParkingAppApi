@@ -24,11 +24,16 @@ namespace LtsParkingAppApi.Controllers
         private readonly IEmailServices _emailServices;
         private IConfiguration _config;
 
-        public EmailController(AutoMapper.IMapper mapper,IEmailServices emailServices, IConfiguration config)
+
+        Serilog.ILogger _logger;
+
+        public EmailController(AutoMapper.IMapper mapper,IEmailServices emailServices, IConfiguration config,
+            Serilog.ILogger logger)
         {
             _mapper = mapper;
             _emailServices = emailServices;
             _config = config;
+            _logger = logger;
         }
 
         /// <summary>
@@ -40,6 +45,7 @@ namespace LtsParkingAppApi.Controllers
         {
             try
             {
+                _logger.Information(Newtonsoft.Json.JsonConvert.SerializeObject(emailDetails));
                 _emailServices.SendEmailAsync(_mapper.Map<EmailDtoInput>(emailDetails),_config);                
             }
             catch (Exception)
